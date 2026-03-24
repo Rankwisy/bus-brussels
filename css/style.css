@@ -101,24 +101,13 @@ strong { font-weight: 600; color: var(--text-dark); }
 .logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: var(--font-sans);
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: var(--primary);
   white-space: nowrap;
 }
-.logo span span { color: var(--secondary); }
-.logo-bus-icon {
-  width: 36px;
-  height: 36px;
-  background: var(--primary);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1rem;
+.logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 .nav-links {
   display: none;
