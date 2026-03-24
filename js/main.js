@@ -259,32 +259,6 @@
     animateCounters();
   }
 
-  /* ---- PHONE / WHATSAPP TRACKING ---- */
-  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-    link.addEventListener('click', () => {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'phone_click', { event_category: 'CTA', event_label: link.href });
-      }
-    });
-  });
-  document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
-    link.addEventListener('click', () => {
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'whatsapp_click', { event_category: 'CTA' });
-      }
-    });
-  });
-
-  /* ---- AUTO-HIDE STICKY CTA on footer ---- */
-  const stickyCta = document.querySelector('.sticky-cta');
-  const footer = document.querySelector('.footer');
-  if (stickyCta && footer) {
-    const obs = new IntersectionObserver(entries => {
-      stickyCta.style.opacity = entries[0].isIntersecting ? '0' : '1';
-      stickyCta.style.pointerEvents = entries[0].isIntersecting ? 'none' : 'auto';
-    });
-    obs.observe(footer);
-  }
 
   /* ---- FORM: date minimum today ---- */
   const dateInputs = document.querySelectorAll('input[type="date"]');
