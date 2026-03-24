@@ -650,6 +650,10 @@ strong { font-weight: 600; color: var(--text-dark); }
   justify-content: center;
   font-size: 3rem;
 }
+.service-card-icon i {
+  font-size: 2.4rem;
+  line-height: 1;
+}
 .service-card-body { padding: 24px; }
 .service-card-body h3 { font-size: 1.1rem; margin-bottom: 8px; }
 .service-card-body p { font-size: 0.9rem; margin-bottom: 16px; }
