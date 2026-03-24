@@ -157,6 +157,8 @@
   function buildList(items) {
     return items.map((c, i) => {
       const isCowrk = !!c.isCowrk;
+      const target  = isCowrk ? '_self'  : '_blank';
+      const rel     = isCowrk ? ''       : 'noopener noreferrer';
       const starsEl = `<span class="comp-stars">${starsHtml(c.rating)}</span>`;
       const tags = [
         `<span class="comp-tag comp-tag-prix">${prixLabel(c.prix)}</span>`,
@@ -164,17 +166,16 @@
         `<span class="comp-tag">${c.services.length} service${c.services.length > 1 ? 's' : ''}</span>`,
         `<span class="comp-tag">${extrasLabel(c.extras)} extras</span>`,
       ].join('');
-      const btn = isCowrk
-        ? `<a href="${c.url}" class="btn btn-primary btn-sm comp-list-btn">Demander un devis →</a>`
-        : `<a href="${c.url}" target="_blank" rel="noopener" class="btn btn-outline btn-sm comp-list-btn">Voir le site →</a>`;
       const badge = isCowrk ? `<span class="comp-badge">Meilleur choix</span>` : '';
       return `<div class="comp-list-item${isCowrk ? ' comp-list-item--best' : ''}">
         <div class="comp-list-rank">#${i + 1}</div>
         <div class="comp-list-body">
-          <div class="comp-list-header"><span class="comp-list-name">${c.name}</span>${badge}</div>
+          <div class="comp-list-header">
+            <a class="comp-list-name" href="${c.url}" target="${target}" rel="${rel}">${c.name} ↗</a>
+            ${badge}
+          </div>
           <div class="comp-list-meta">${starsEl} ${tags}</div>
         </div>
-        <div class="comp-list-action">${btn}</div>
       </div>`;
     }).join('');
   }

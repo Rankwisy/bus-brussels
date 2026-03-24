@@ -1501,7 +1501,11 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .comp-list-name {
   font-weight: 700;
   font-size: 0.88rem;
+  color: var(--primary);
+  text-decoration: none;
 }
+.comp-list-name:hover { text-decoration: underline; }
+.comp-list-item--best .comp-list-name { color: #fff; }
 .comp-list-meta {
   display: flex;
   align-items: center;
@@ -1520,8 +1524,6 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 }
 .comp-tag-prix { background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32; }
 .comp-tag-rt   { background: #fff3e0; border-color: #ffcc80; color: #e65100; }
-.comp-list-action { flex-shrink: 0; }
-.comp-list-btn { white-space: nowrap; }
 .comp-badge {
   display: inline-block;
   background: var(--secondary);
