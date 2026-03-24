@@ -148,23 +148,22 @@ strong { font-weight: 600; color: var(--text-dark); }
     border-top: 3px solid var(--secondary);
     border-bottom: 1px solid var(--border);
     box-shadow: 0 24px 48px rgba(27,58,107,0.18);
-    /* Invisible bridge above the panel — keeps :hover alive while
-       the mouse travels from the trigger down to the mega menu */
-  }
-  .mega-menu::before {
-    content: '';
-    position: absolute;
-    top: -28px;      /* reach up past the gap between trigger and panel */
-    left: 0;
-    right: 0;
-    height: 28px;    /* transparent — only catches pointer events */
-  }
     z-index: 200;
     visibility: hidden;
     opacity: 0;
     transform: translateY(-6px);
     transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
     pointer-events: none;
+  }
+  /* Invisible bridge — fills the gap between nav trigger and panel,
+     keeps .mega-item:hover alive while mouse travels downward */
+  .mega-menu::before {
+    content: '';
+    position: absolute;
+    top: -28px;
+    left: 0;
+    right: 0;
+    height: 28px;
   }
   .mega-item:hover .mega-menu {
     visibility: visible;
