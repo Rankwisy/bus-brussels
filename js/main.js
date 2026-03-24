@@ -154,34 +154,29 @@
   function rtLabel(n)    { return ['', '< 2h ⚡', '2–4h', '+ 4h'][n] || '?'; }
   function extrasLabel(n){ return n + ' / 6'; }
 
-  function buildTable(cols) {
-    const [cowrk, ...rest] = cols;
-    const rows = [
-      { label: 'Prix',            fn: c => prixLabel(c.prix) },
-      { label: 'Note clients',    fn: c => `<span class="comp-stars">${starsHtml(c.rating)}</span>` },
-      { label: 'Services',        fn: c => c.services.join(', ') },
-      { label: 'Extras inclus',   fn: c => extrasLabel(c.extras) },
-      { label: 'Délai réponse',   fn: c => rtLabel(c.responseTime) },
-    ];
-
-    let th = `<th class="comp-col-cowrk"><div class="comp-badge">Meilleur choix</div>${cowrk.name}</th>`;
-    rest.forEach(c => { th += `<th>${c.name}</th>`; });
-
-    let bodyRows = '';
-    rows.forEach(row => {
-      let tr = `<tr><td class="comp-row-label">${row.label}</td>`;
-      tr += `<td class="comp-col-cowrk">${row.fn(cowrk)}</td>`;
-      rest.forEach(c => { tr += `<td>${row.fn(c)}</td>`; });
-      tr += '</tr>';
-      bodyRows += tr;
-    });
-
-    // CTA row
-    let ctaRow = `<tr class="comp-cta-row"><td></td><td class="comp-col-cowrk"><a href="${cowrk.url}" class="btn btn-primary btn-sm">Demander un devis</a></td>`;
-    rest.forEach(c => { ctaRow += `<td><a href="${c.url}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Voir le site</a></td>`; });
-    ctaRow += '</tr>';
-
-    return `<div class="comp-table-wrap"><table class="comp-table"><thead><tr><th></th>${th}</tr></thead><tbody>${bodyRows}${ctaRow}</tbody></table></div>`;
+  function buildList(items) {
+    return items.map((c, i) => {
+      const isCowrk = !!c.isCowrk;
+      const starsEl = `<span class="comp-stars">${starsHtml(c.rating)}</span>`;
+      const tags = [
+        `<span class="comp-tag comp-tag-prix">${prixLabel(c.prix)}</span>`,
+        `<span class="comp-tag comp-tag-rt">${rtLabel(c.responseTime)}</span>`,
+        `<span class="comp-tag">${c.services.length} service${c.services.length > 1 ? 's' : ''}</span>`,
+        `<span class="comp-tag">${extrasLabel(c.extras)} extras</span>`,
+      ].join('');
+      const btn = isCowrk
+        ? `<a href="${c.url}" class="btn btn-primary btn-sm comp-list-btn">Demander un devis →</a>`
+        : `<a href="${c.url}" target="_blank" rel="noopener" class="btn btn-outline btn-sm comp-list-btn">Voir le site →</a>`;
+      const badge = isCowrk ? `<span class="comp-badge">Meilleur choix</span>` : '';
+      return `<div class="comp-list-item${isCowrk ? ' comp-list-item--best' : ''}">
+        <div class="comp-list-rank">#${i + 1}</div>
+        <div class="comp-list-body">
+          <div class="comp-list-header"><span class="comp-list-name">${c.name}</span>${badge}</div>
+          <div class="comp-list-meta">${starsEl} ${tags}</div>
+        </div>
+        <div class="comp-list-action">${btn}</div>
+      </div>`;
+    }).join('');
   }
 
   const comparerBtn = document.getElementById('comparerBtn');
@@ -200,9 +195,9 @@
 
       const ranked = [...competitors]
         .sort((a, b) => scoreCompetitor(b, checked) - scoreCompetitor(a, checked))
-        .slice(0, 3);
+        .slice(0, 5);
 
-      resEl.innerHTML = buildTable([COWRKBUS, ...ranked]);
+      resEl.innerHTML = buildList([COWRKBUS, ...ranked]);
       resEl.style.display = 'block';
       resEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
