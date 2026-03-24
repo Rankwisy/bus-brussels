@@ -170,58 +170,35 @@
           </a>
         </div>
       </div>
-      <div class="hero-form-card">
-        <h3><i class="fas fa-calculator" style="color:var(--secondary)"></i> Estimation rapide</h3>
-        <form id="quoteForm" action="#" method="post">
-          <div class="form-grid">
-            <div class="form-row form-row-2">
-              <div class="form-group">
-                <label class="form-label" for="h-prenom">Prénom</label>
-                <input class="form-control" type="text" id="h-prenom" name="prenom" placeholder="Jean" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="h-tel">Téléphone</label>
-                <input class="form-control" type="tel" id="h-tel" name="telephone" placeholder="+32 4..." required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="h-service">Type de service</label>
-              <select class="form-control" id="h-service" name="service">
-                <option value="">— Sélectionnez —</option>
-                <option>Événement / Soirée</option>
-                <option>Transport scolaire</option>
-                <option>Bus entreprise</option>
-                <option>Navette aéroport</option>
-                <option>Visite touristique</option>
-                <option>Autre</option>
-              </select>
-            </div>
-            <div class="form-row form-row-2">
-              <div class="form-group">
-                <label class="form-label" for="h-date">Date souhaitée</label>
-                <input class="form-control" type="date" id="h-date" name="date">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="h-passagers">Nombre de passagers</label>
-                <select class="form-control" id="h-passagers" name="passagers">
-                  <option>1–8 personnes</option>
-                  <option>9–20 personnes</option>
-                  <option>21–35 personnes</option>
-                  <option>36–55 personnes</option>
-                  <option>55+ personnes</option>
-                </select>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-full btn-lg">
-              <i class="fas fa-paper-plane"></i> Obtenir mon devis gratuit
-            </button>
-            <p class="form-note"><i class="fas fa-lock"></i> Sans engagement — Réponse garantie sous 2h</p>
-          </div>
-        </form>
-        <div id="formSuccess" style="display:none; text-align:center; padding:20px">
-          <div style="font-size:3rem;margin-bottom:12px">✅</div>
-          <h4 style="color:var(--success)">Demande envoyée avec succès !</h4>
-          <p>Notre équipe vous contactera dans les 2 heures.</p>
+      <div class="hero-comparateur-card">
+        <h3><i class="fas fa-balance-scale" style="color:var(--secondary)"></i> Comparez les prestataires</h3>
+        <p class="comp-subtitle">Qu'est-ce qui compte le plus pour vous ?</p>
+        <div class="criteria-grid">
+          <label class="criteria-item">
+            <input type="checkbox" value="prix">
+            <span>💰 Prix bas</span>
+          </label>
+          <label class="criteria-item">
+            <input type="checkbox" value="rapide">
+            <span>⚡ Réponse rapide</span>
+          </label>
+          <label class="criteria-item">
+            <input type="checkbox" value="rating">
+            <span>⭐ Bien noté</span>
+          </label>
+          <label class="criteria-item">
+            <input type="checkbox" value="extras">
+            <span>✨ Extras inclus</span>
+          </label>
+        </div>
+        <button id="comparerBtn" class="btn btn-primary btn-full btn-lg" style="margin-top:16px">
+          <i class="fas fa-search"></i> Comparer maintenant
+        </button>
+        <div id="comparateurError" style="display:none" class="comp-error">
+          Veuillez sélectionner au moins un critère.
+        </div>
+        <div id="comparateurResults" style="display:none" class="comp-results-wrap">
+          <!-- Filled by JS -->
         </div>
       </div>
     </div>

@@ -103,29 +103,108 @@
     });
   });
 
-  /* ---- QUOTE FORM HANDLER ---- */
-  const quoteForm = document.getElementById('quoteForm');
-  if (quoteForm) {
-    quoteForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const btn = this.querySelector('[type="submit"]');
-      const original = btn.textContent;
-      btn.textContent = 'Envoi en cours…';
-      btn.disabled = true;
+  /* ---- COMPARATEUR ---- */
+  const COWRKBUS = {
+    name: 'CowrkBus',
+    url: 'devis-bus-bruxelles.html',
+    prix: 1,        // 1=€ (less = cheaper)
+    rating: 5,
+    extras: 6,      // GPS, WiFi, assurance, boissons, guide, accessibilité
+    responseTime: 1, // 1=rapide (less = faster)
+    services: ['Événement', 'Scolaire', 'Entreprise', 'Aéroport', 'Tourisme', 'Privé'],
+    isCowrk: true
+  };
 
-      // Simulate API call (replace with real endpoint)
-      setTimeout(() => {
-        const successMsg = document.getElementById('formSuccess');
-        if (successMsg) {
-          quoteForm.style.display = 'none';
-          successMsg.style.display = 'block';
-          successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-          btn.textContent = '✓ Demande envoyée !';
-          btn.style.background = '#27AE60';
-          btn.style.color = 'white';
-        }
-      }, 1200);
+  const competitors = [
+    { name: 'Location Bus',       url: 'https://location-bus.be',           prix: 2, rating: 4, extras: 3, responseTime: 2, services: ['Événement', 'Privé'] },
+    { name: 'LocationAutocar',    url: 'https://www.locationautocar.be',     prix: 2, rating: 3, extras: 2, responseTime: 2, services: ['Privé', 'Entreprise'] },
+    { name: 'LVC Brussels',       url: 'https://lvc.brussels',               prix: 3, rating: 4, extras: 3, responseTime: 2, services: ['Privé', 'Événement'] },
+    { name: 'Transport Belgique', url: 'https://transportbelgique.com',      prix: 2, rating: 3, extras: 2, responseTime: 3, services: ['Entreprise'] },
+    { name: 'RentABus',           url: 'https://rentabus.be',                prix: 2, rating: 3, extras: 2, responseTime: 2, services: ['Privé', 'Tourisme'] },
+    { name: 'BusMinibus',         url: 'https://busminibus.com',             prix: 2, rating: 3, extras: 2, responseTime: 2, services: ['Privé'] },
+    { name: 'Autocar Bruxelles',  url: 'https://autocar-bruxelles.be',       prix: 2, rating: 4, extras: 3, responseTime: 2, services: ['Entreprise', 'Tourisme'] },
+    { name: 'BusRental BXL',      url: 'https://busrental.brussels',         prix: 3, rating: 3, extras: 2, responseTime: 3, services: ['Privé', 'Événement'] },
+    { name: 'LocationBus',        url: 'https://locationbus.be',             prix: 2, rating: 3, extras: 2, responseTime: 2, services: ['Privé'] },
+    { name: 'Shuttle Service',    url: 'https://shuttle-service.be',         prix: 2, rating: 4, extras: 3, responseTime: 1, services: ['Aéroport', 'Entreprise'] },
+    { name: 'LimoStar',           url: 'https://limostar.be',                prix: 3, rating: 4, extras: 4, responseTime: 1, services: ['Privé', 'Événement'] },
+    { name: 'RentBus BXL',        url: 'https://rentbus.brussels',           prix: 2, rating: 3, extras: 2, responseTime: 2, services: ['Privé'] },
+    { name: 'VTC Brussels',       url: 'https://vtc.brussels',               prix: 3, rating: 4, extras: 3, responseTime: 1, services: ['Privé'] },
+    { name: 'Bus4Rent',           url: 'https://bus4rent.be',                prix: 2, rating: 3, extras: 2, responseTime: 2, services: ['Privé', 'Tourisme'] },
+    { name: 'Chauffeur BXL',      url: 'https://chauffeur.brussels',         prix: 3, rating: 4, extras: 4, responseTime: 1, services: ['Privé', 'Entreprise'] },
+    { name: 'Autocar Service',    url: 'https://autocar-service.com',        prix: 2, rating: 3, extras: 2, responseTime: 3, services: ['Scolaire', 'Entreprise'] },
+    { name: 'Autocar.Brussels',   url: 'https://www.autocar.brussels',       prix: 2, rating: 4, extras: 3, responseTime: 2, services: ['Tourisme', 'Privé'] },
+    { name: 'Belgian Train',      url: 'https://www.belgiantrain.be',        prix: 1, rating: 3, extras: 1, responseTime: 3, services: ['Entreprise'] },
+    { name: 'De Lijn',            url: 'https://www.delijn.be',              prix: 1, rating: 2, extras: 1, responseTime: 3, services: ['Scolaire'] },
+    { name: 'TEC',                url: 'https://www.letec.be',               prix: 1, rating: 2, extras: 1, responseTime: 3, services: ['Scolaire'] },
+    { name: 'STIB-MIVB',          url: 'https://www.stib-mivb.be',          prix: 1, rating: 3, extras: 1, responseTime: 3, services: ['Entreprise'] },
+    { name: 'Limousine BXL',      url: 'https://limousine.brussels',         prix: 3, rating: 4, extras: 4, responseTime: 1, services: ['Privé', 'Événement'] },
+  ];
+
+  function scoreCompetitor(c, criteria) {
+    let s = 0;
+    if (criteria.includes('prix'))   s += (4 - c.prix) * 3;
+    if (criteria.includes('rapide')) s += (4 - c.responseTime) * 3;
+    if (criteria.includes('rating')) s += c.rating * 2;
+    if (criteria.includes('extras')) s += c.extras;
+    return s;
+  }
+
+  function prixLabel(n)  { return ['', '€', '€€', '€€€'][n] || '?'; }
+  function starsHtml(n)  { return '★'.repeat(n) + '☆'.repeat(5 - n); }
+  function rtLabel(n)    { return ['', '< 2h ⚡', '2–4h', '+ 4h'][n] || '?'; }
+  function extrasLabel(n){ return n + ' / 6'; }
+
+  function buildTable(cols) {
+    const [cowrk, ...rest] = cols;
+    const rows = [
+      { label: 'Prix',            fn: c => prixLabel(c.prix) },
+      { label: 'Note clients',    fn: c => `<span class="comp-stars">${starsHtml(c.rating)}</span>` },
+      { label: 'Services',        fn: c => c.services.join(', ') },
+      { label: 'Extras inclus',   fn: c => extrasLabel(c.extras) },
+      { label: 'Délai réponse',   fn: c => rtLabel(c.responseTime) },
+    ];
+
+    let th = `<th class="comp-col-cowrk"><div class="comp-badge">Meilleur choix</div>${cowrk.name}</th>`;
+    rest.forEach(c => { th += `<th>${c.name}</th>`; });
+
+    let bodyRows = '';
+    rows.forEach(row => {
+      let tr = `<tr><td class="comp-row-label">${row.label}</td>`;
+      tr += `<td class="comp-col-cowrk">${row.fn(cowrk)}</td>`;
+      rest.forEach(c => { tr += `<td>${row.fn(c)}</td>`; });
+      tr += '</tr>';
+      bodyRows += tr;
+    });
+
+    // CTA row
+    let ctaRow = `<tr class="comp-cta-row"><td></td><td class="comp-col-cowrk"><a href="${cowrk.url}" class="btn btn-primary btn-sm">Demander un devis</a></td>`;
+    rest.forEach(c => { ctaRow += `<td><a href="${c.url}" target="_blank" rel="noopener" class="btn btn-outline btn-sm">Voir le site</a></td>`; });
+    ctaRow += '</tr>';
+
+    return `<div class="comp-table-wrap"><table class="comp-table"><thead><tr><th></th>${th}</tr></thead><tbody>${bodyRows}${ctaRow}</tbody></table></div>`;
+  }
+
+  const comparerBtn = document.getElementById('comparerBtn');
+  if (comparerBtn) {
+    comparerBtn.addEventListener('click', function () {
+      const checked = [...document.querySelectorAll('.criteria-grid input:checked')].map(i => i.value);
+      const errEl  = document.getElementById('comparateurError');
+      const resEl  = document.getElementById('comparateurResults');
+
+      if (checked.length === 0) {
+        errEl.style.display = 'block';
+        resEl.style.display = 'none';
+        return;
+      }
+      errEl.style.display = 'none';
+
+      const ranked = [...competitors]
+        .sort((a, b) => scoreCompetitor(b, checked) - scoreCompetitor(a, checked))
+        .slice(0, 3);
+
+      resEl.innerHTML = buildTable([COWRKBUS, ...ranked]);
+      resEl.style.display = 'block';
+      resEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
 
