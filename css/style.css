@@ -148,6 +148,17 @@ strong { font-weight: 600; color: var(--text-dark); }
     border-top: 3px solid var(--secondary);
     border-bottom: 1px solid var(--border);
     box-shadow: 0 24px 48px rgba(27,58,107,0.18);
+    /* Invisible bridge above the panel — keeps :hover alive while
+       the mouse travels from the trigger down to the mega menu */
+  }
+  .mega-menu::before {
+    content: '';
+    position: absolute;
+    top: -28px;      /* reach up past the gap between trigger and panel */
+    left: 0;
+    right: 0;
+    height: 28px;    /* transparent — only catches pointer events */
+  }
     z-index: 200;
     visibility: hidden;
     opacity: 0;
