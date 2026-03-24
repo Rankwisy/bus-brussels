@@ -1,0 +1,12 @@
+# robots.txt — bus.brussels
+# Generated: 2024-01-15
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://bus.brussels/sitemap.xml
+
+# Disallow admin or private directories (add as needed)
+# Disallow: /admin/
+# Disallow: /private/

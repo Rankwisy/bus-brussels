@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis Gratuit Location Bus Bruxelles | Réponse en 2h — bus.brussels</title>
+  <meta name="description" content="Demandez votre devis gratuit pour la location d'un bus à Bruxelles. Formulaire simple, réponse sous 2 heures, sans engagement. Disponible 7j/7.">
+  <meta name="keywords" content="devis bus Bruxelles, devis location bus gratuit, demande devis autocar Bruxelles, réservation bus Bruxelles">
+  <link rel="canonical" href="https://bus.brussels/devis-bus-bruxelles.html">
+  <meta property="og:title" content="Devis Gratuit Location Bus Bruxelles | Réponse en 2h — bus.brussels">
+  <meta property="og:description" content="Demandez votre devis gratuit pour la location d'un bus à Bruxelles. Réponse sous 2 heures, sans engagement. Disponible 7j/7.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bus.brussels/devis-bus-bruxelles.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .devis-layout {
+      display: grid;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (min-width: 1024px) {
+      .devis-layout { grid-template-columns: 1fr 380px; }
+    }
+    .sidebar-box {
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    .sidebar-box h4 {
+      font-size: 1rem;
+      color: var(--primary);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+    }
+    .trust-bar-devis {
+      background: var(--primary);
+      padding: 20px 0;
+    }
+    .trust-bar-devis .trust-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px 36px;
+    }
+    .trust-bar-devis .trust-item {
+      color: white;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .trust-bar-devis .trust-item i {
+      color: var(--secondary);
+      margin-right: 6px;
+    }
+    .form-checkbox-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .form-checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--text-medium);
+      cursor: pointer;
+      padding: 10px 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: var(--transition);
+    }
+    .form-checkbox-label:hover {
+      border-color: var(--primary);
+      background: var(--accent);
+    }
+    .form-checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+    .sidebar-why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .sidebar-why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-medium);
+    }
+    .sidebar-why-item i {
+      color: var(--success);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .quick-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .quick-price-row:last-child { border-bottom: none; }
+    .quick-price-row .vehicle { color: var(--text-dark); font-weight: 600; }
+    .quick-price-row .price { color: var(--primary); font-weight: 700; }
+    .contact-action-box {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+    }
+    .contact-action-box p { color: rgba(255,255,255,0.85); font-size: 0.88rem; margin-bottom: 16px; }
+    .submit-btn-large {
+      background: var(--secondary);
+      color: var(--primary-dark);
+      border: none;
+      border-radius: 50px;
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 18px 40px;
+      width: 100%;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .submit-btn-large:hover {
+      background: var(--secondary-dark);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(244,161,0,0.4);
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Combien de temps pour recevoir mon devis ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nous traitons les demandes de devis dans un délai maximum de 2 heures pendant les heures ouvrables (8h–20h, 7j/7). Les demandes reçues en soirée ou la nuit reçoivent une réponse le lendemain matin dès 8h. En période de forte demande (été, fêtes), le délai reste inférieur à 2 heures grâce à notre équipe dédiée."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Mon devis est-il contraignant ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Non, recevoir un devis ne vous engage absolument à rien. Le devis est une proposition commerciale valable 15 jours. Vous restez libre de l'accepter, de le refuser, ou de demander des modifications. Aucun acompte n'est prélevé avant que vous n'ayez explicitement confirmé votre réservation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Puis-je demander plusieurs options dans le même devis ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oui, absolument. Dans le champ 'Message / détails supplémentaires', vous pouvez préciser que vous souhaitez comparer plusieurs véhicules, plusieurs formules horaires ou différentes options. Nous vous enverrons un devis multi-options clair vous permettant de choisir en toute connaissance de cause."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Comment se passe la confirmation de réservation ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Une fois le devis accepté, nous vous envoyons un bon de réservation officiel. Un acompte de 30% du montant total est demandé pour confirmer votre réservation et bloquer le véhicule. Le solde de 70% est réglé au plus tard la veille du départ ou sur facture pour les entreprises avec compte ouvert. Vous recevez ensuite les coordonnées de votre chauffeur 24h avant le départ."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="container">
+      <a href="index.html" class="logo"><div class="logo-bus-icon"><i class="fas fa-bus"></i></div><span>bus<span>.brussels</span></span></a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Accueil</a></li>
+        <li class="dropdown"><a href="location-bus-bruxelles.html">Services <i class="fas fa-chevron-down" style="font-size:0.65rem"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="location-bus-bruxelles.html">Location Bus Bruxelles</a></li>
+            <li><a href="bus-avec-chauffeur.html">Bus avec Chauffeur</a></li>
+            <li><a href="bus-scolaire-bruxelles.html">Bus Scolaire</a></li>
+            <li><a href="bus-evenement-bruxelles.html">Bus Événementiel</a></li>
+            <li><a href="bus-entreprise-bruxelles.html">Bus Entreprise</a></li>
+            <li><a href="bus-touristique-bruxelles.html">Bus Touristique</a></li>
+            <li><a href="navette-aeroport-bruxelles.html">Navette Aéroport</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="#">Communes <i class="fas fa-chevron-down" style="font-size:0.65rem"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="bus-anderlecht.html">Anderlecht</a></li>
+            <li><a href="bus-ixelles.html">Ixelles</a></li>
+            <li><a href="bus-schaerbeek.html">Schaerbeek</a></li>
+            <li><a href="bus-molenbeek.html">Molenbeek</a></li>
+            <li><a href="bus-uccle.html">Uccle</a></li>
+            <li><a href="bus-etterbeek.html">Etterbeek</a></li>
+            <li><a href="bus-woluwe-saint-lambert.html">Woluwe-Saint-Lambert</a></li>
+            <li><a href="bus-woluwe-saint-pierre.html">Woluwe-Saint-Pierre</a></li>
+          </ul>
+        </li>
+        <li><a href="prix-location-bus.html">Tarifs</a></li>
+        <li><a href="devis-bus-bruxelles.html" class="btn-nav">Devis Gratuit</a></li>
+      </ul>
+      <div class="nav-contact"><a href="tel:+3225551234" class="phone-link"><i class="fas fa-phone"></i> +32 2 555 12 34</a></div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO (compact) -->
+  <section class="page-hero" id="main-content" style="padding-bottom:48px">
+    <div class="container" style="position:relative; z-index:1">
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="index.html">Accueil</a>
+        <span>›</span>
+        <span>Devis Gratuit</span>
+      </nav>
+      <h1>Demandez votre Devis Gratuit pour un Bus à Bruxelles</h1>
+      <p>Remplissez le formulaire — notre équipe vous répond sous 2 heures, 7 jours sur 7. Sans engagement, sans frais cachés.</p>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar-devis">
+    <div class="container">
+      <div class="trust-items">
+        <div class="trust-item"><i class="fas fa-clock"></i> Réponse garantie en 2h</div>
+        <div class="trust-item"><i class="fas fa-gift"></i> Devis 100% gratuit</div>
+        <div class="trust-item"><i class="fas fa-handshake"></i> Sans engagement</div>
+        <div class="trust-item"><i class="fas fa-medal"></i> Meilleur prix garanti</div>
+        <div class="trust-item"><i class="fas fa-shield-alt"></i> Données sécurisées</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN DEVIS SECTION -->
+  <section class="devis-section" id="formulaire">
+    <div class="container">
+      <div class="devis-layout">
+
+        <!-- LEFT: FORM -->
+        <div>
+          <div class="devis-card">
+            <h2 style="font-size:1.4rem; color:var(--primary); margin-bottom:8px">
+              <i class="fas fa-paper-plane" style="color:var(--secondary); margin-right:10px"></i>Votre demande de devis
+            </h2>
+            <p style="font-size:0.88rem; color:var(--text-light); margin-bottom:28px">Plus vous fournissez de détails, plus notre devis sera précis et rapide.</p>
+
+            <form id="devisForm" action="#" method="post" novalidate>
+              <div class="form-grid">
+
+                <!-- Nom & Prénom -->
+                <div class="form-row form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="prenom">Prénom <span style="color:var(--danger)">*</span></label>
+                    <input class="form-control" type="text" id="prenom" name="prenom" placeholder="Jean" required autocomplete="given-name">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="nom">Nom <span style="color:var(--danger)">*</span></label>
+                    <input class="form-control" type="text" id="nom" name="nom" placeholder="Dupont" required autocomplete="family-name">
+                  </div>
+                </div>
+
+                <!-- Email & Téléphone -->
+                <div class="form-row form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="email">Adresse e-mail <span style="color:var(--danger)">*</span></label>
+                    <input class="form-control" type="email" id="email" name="email" placeholder="jean.dupont@exemple.be" required autocomplete="email">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="telephone">Téléphone <span style="color:var(--danger)">*</span></label>
+                    <input class="form-control" type="tel" id="telephone" name="telephone" placeholder="+32 4 xx xx xx xx" required autocomplete="tel">
+                  </div>
+                </div>
+
+                <!-- Type de service -->
+                <div class="form-group">
+                  <label class="form-label" for="service">Type de service souhaité <span style="color:var(--danger)">*</span></label>
+                  <select class="form-control" id="service" name="service" required>
+                    <option value="">— Sélectionnez le type de service —</option>
+                    <option value="standard">Location standard / déplacement privé</option>
+                    <option value="scolaire">Transport scolaire / sortie pédagogique</option>
+                    <option value="evenement">Événement (mariage, soirée, fête)</option>
+                    <option value="entreprise">Transport d'entreprise / séminaire</option>
+                    <option value="touristique">Excursion touristique / visite culturelle</option>
+                    <option value="aeroport">Navette aéroport (Zaventem / Charleroi)</option>
+                    <option value="autre">Autre (préciser dans le message)</option>
+                  </select>
+                </div>
+
+                <!-- Dates -->
+                <div class="form-row form-row-2">
+                  <div class="form-group">
+                    <label class="form-label" for="date-depart">Date de départ <span style="color:var(--danger)">*</span></label>
+                    <input class="form-control" type="date" id="date-depart" name="date_depart" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="date-retour">Date de retour</label>
+                    <input class="form-control" type="date" id="date-retour" name="date_retour">
+                  </div>
+                </div>
+
+                <!-- Heure de départ -->
+                <div class="form-group">
+                  <label class="form-label" for="heure-depart">Heure de départ souhaitée <span style="color:var(--danger)">*</span></label>
+                  <input class="form-control" type="time" id="heure-depart" name="heure_depart" required>
+                </div>
+
+                <!-- Lieu de départ -->
+                <div class="form-group">
+                  <label class="form-label" for="lieu-depart">Lieu de départ (adresse précise) <span style="color:var(--danger)">*</span></label>
+                  <input class="form-control" type="text" id="lieu-depart" name="lieu_depart" placeholder="Ex : Avenue Louise 54, 1050 Bruxelles" required>
+                </div>
+
+                <!-- Lieu d'arrivée -->
+                <div class="form-group">
+                  <label class="form-label" for="lieu-arrivee">Lieu d'arrivée (adresse ou ville) <span style="color:var(--danger)">*</span></label>
+                  <input class="form-control" type="text" id="lieu-arrivee" name="lieu_arrivee" placeholder="Ex : Grote Markt, Bruges" required>
+                </div>
+
+                <!-- Nombre de passagers -->
+                <div class="form-group">
+                  <label class="form-label" for="passagers">Nombre de passagers <span style="color:var(--danger)">*</span></label>
+                  <select class="form-control" id="passagers" name="passagers" required>
+                    <option value="">— Sélectionnez une tranche —</option>
+                    <option value="1-8">1 à 8 personnes</option>
+                    <option value="9-16">9 à 16 personnes</option>
+                    <option value="17-25">17 à 25 personnes</option>
+                    <option value="26-35">26 à 35 personnes</option>
+                    <option value="36-50">36 à 50 personnes</option>
+                    <option value="51-65">51 à 65 personnes</option>
+                    <option value="65+">Plus de 65 personnes</option>
+                  </select>
+                </div>
+
+                <!-- Type de bus -->
+                <div class="form-group">
+                  <label class="form-label" for="type-bus">Type de bus souhaité</label>
+                  <select class="form-control" id="type-bus" name="type_bus">
+                    <option value="">— Peu importe / conseiller-moi —</option>
+                    <option value="minibus">Minibus (8–16 places)</option>
+                    <option value="standard">Bus standard (20–35 places)</option>
+                    <option value="grand">Grand autocar (40–65 places)</option>
+                    <option value="prestige">Minibus prestige / VIP</option>
+                  </select>
+                </div>
+
+                <!-- Services supplémentaires -->
+                <div class="form-group">
+                  <label class="form-label">Services supplémentaires souhaités</label>
+                  <div class="form-checkbox-group">
+                    <label class="form-checkbox-label">
+                      <input type="checkbox" name="options[]" value="wifi"> <i class="fas fa-wifi" style="color:var(--primary)"></i> Wi-Fi à bord
+                    </label>
+                    <label class="form-checkbox-label">
+                      <input type="checkbox" name="options[]" value="clim"> <i class="fas fa-snowflake" style="color:#63B3ED"></i> Climatisation renforcée
+                    </label>
+                    <label class="form-checkbox-label">
+                      <input type="checkbox" name="options[]" value="micro"> <i class="fas fa-microphone" style="color:var(--secondary-dark)"></i> Micro à bord
+                    </label>
+                    <label class="form-checkbox-label">
+                      <input type="checkbox" name="options[]" value="deco"> <i class="fas fa-ribbon" style="color:#D53F8C"></i> Décoration événement
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Message -->
+                <div class="form-group">
+                  <label class="form-label" for="message">Message / détails supplémentaires</label>
+                  <textarea class="form-control" id="message" name="message" rows="5" placeholder="Précisez ici toute information utile : escales intermédiaires, contraintes d'accès, matériel à transporter, langue du chauffeur souhaitée, options comparatives à chiffrer..."></textarea>
+                </div>
+
+                <!-- SUBMIT -->
+                <div>
+                  <button type="submit" class="submit-btn-large">
+                    <i class="fas fa-paper-plane"></i> Envoyer ma demande de devis gratuit
+                  </button>
+                  <p class="form-note" style="margin-top:12px">
+                    <i class="fas fa-lock" style="color:var(--success)"></i> Vos données sont traitées de manière confidentielle et ne sont jamais revendues à des tiers. En soumettant ce formulaire, vous acceptez notre <a href="#" style="color:var(--primary)">politique de confidentialité</a>. Réponse garantie sous 2h, sans engagement.
+                  </p>
+                </div>
+
+              </div>
+            </form>
+
+            <!-- SUCCESS MESSAGE -->
+            <div id="devisSuccess" style="display:none; text-align:center; padding:40px 20px">
+              <div style="width:72px; height:72px; background:var(--success); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:2rem; color:white">
+                <i class="fas fa-check"></i>
+              </div>
+              <h3 style="color:var(--success); margin-bottom:12px">Demande envoyée avec succès !</h3>
+              <p>Merci pour votre confiance. Notre équipe examine votre demande et vous contactera <strong>dans les 2 heures</strong> par e-mail et par téléphone.</p>
+              <p style="font-size:0.88rem; margin-top:16px">En attendant, n'hésitez pas à consulter notre <a href="prix-location-bus.html" style="color:var(--primary); font-weight:600">grille tarifaire</a> pour vous faire une idée des prix.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT: SIDEBAR -->
+        <div>
+
+          <!-- Pourquoi nous choisir -->
+          <div class="sidebar-box">
+            <h4><i class="fas fa-star" style="color:var(--secondary); margin-right:8px"></i>Pourquoi nous choisir ?</h4>
+            <div class="sidebar-why-list">
+              <div class="sidebar-why-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>15 ans d'expérience</strong> dans le transport de groupe à Bruxelles et en Belgique</span>
+              </div>
+              <div class="sidebar-why-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>50+ véhicules</strong> disponibles : du minibus 8 places au grand autocar 65 places</span>
+              </div>
+              <div class="sidebar-why-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>Chauffeurs certifiés</strong>, trilingues FR/NL/EN, formés à la sécurité</span>
+              </div>
+              <div class="sidebar-why-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>Tarifs tout compris</strong>, sans frais cachés ni mauvaises surprises</span>
+              </div>
+              <div class="sidebar-why-item">
+                <i class="fas fa-check-circle"></i>
+                <span><strong>Disponible 24h/24</strong>, 7j/7, y compris jours fériés et nuit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact direct -->
+          <div class="contact-action-box" style="margin-bottom:20px">
+            <p>Préférez-vous nous parler directement ? Notre équipe répond immédiatement.</p>
+            <a href="tel:+3225551234" class="btn btn-white btn-full" style="margin-bottom:12px; font-weight:700">
+              <i class="fas fa-phone" style="color:var(--primary)"></i> +32 2 555 12 34
+            </a>
+            <a href="https://wa.me/3225551234?text=Bonjour,%20je%20souhaite%20un%20devis%20pour%20un%20bus%20à%20Bruxelles." class="btn btn-whatsapp btn-full" target="_blank" rel="noopener">
+              <i class="fab fa-whatsapp"></i> Contacter sur WhatsApp
+            </a>
+          </div>
+
+          <!-- Témoignages -->
+          <div class="sidebar-box">
+            <h4><i class="fas fa-comment-alt" style="color:var(--secondary); margin-right:8px"></i>Ce que nos clients disent</h4>
+            <div style="margin-bottom:20px">
+              <div class="stars" style="font-size:0.8rem; margin-bottom:6px">★★★★★</div>
+              <p style="font-size:0.85rem; font-style:italic; color:var(--text-medium); margin-bottom:10px">"Devis reçu en moins d'une heure, chauffeur ponctuel et professionnel pour notre réunion avec des clients japonais. Je recommande sans hésiter pour les groupes d'affaires."</p>
+              <div style="display:flex; align-items:center; gap:10px">
+                <div class="author-avatar" style="width:36px; height:36px; font-size:0.85rem; background:var(--primary)">AL</div>
+                <div>
+                  <div style="font-size:0.82rem; font-weight:600; color:var(--text-dark)">Anne-Laure Mertens</div>
+                  <div style="font-size:0.75rem; color:var(--text-light)">Office Manager — Cabinet conseil, Etterbeek</div>
+                </div>
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--border); padding-top:20px">
+              <div class="stars" style="font-size:0.8rem; margin-bottom:6px">★★★★★</div>
+              <p style="font-size:0.85rem; font-style:italic; color:var(--text-medium); margin-bottom:10px">"Nous avons organisé le transport de 55 parents et enfants pour une sortie scolaire à Namur. Tout s'est déroulé parfaitement, le chauffeur était patient et sympa avec les enfants. Prix très honnête."</p>
+              <div style="display:flex; align-items:center; gap:10px">
+                <div class="author-avatar" style="width:36px; height:36px; font-size:0.85rem; background:var(--success)">FV</div>
+                <div>
+                  <div style="font-size:0.82rem; font-weight:600; color:var(--text-dark)">François Vanbever</div>
+                  <div style="font-size:0.75rem; color:var(--text-light)">Directeur — École primaire, Schaerbeek</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarifs de référence rapide -->
+          <div class="sidebar-box">
+            <h4><i class="fas fa-tag" style="color:var(--secondary); margin-right:8px"></i>Tarifs de référence</h4>
+            <div class="quick-price-row">
+              <span class="vehicle">🚐 Minibus (8–16 p.)</span>
+              <span class="price">dès 45 €/h</span>
+            </div>
+            <div class="quick-price-row">
+              <span class="vehicle">🚌 Bus standard (20–35 p.)</span>
+              <span class="price">dès 65 €/h</span>
+            </div>
+            <div class="quick-price-row">
+              <span class="vehicle">🚎 Grand autocar (40–65 p.)</span>
+              <span class="price">dès 90 €/h</span>
+            </div>
+            <div class="quick-price-row">
+              <span class="vehicle">📅 Forfait journée</span>
+              <span class="price">dès 280 €</span>
+            </div>
+            <a href="prix-location-bus.html" class="card-link" style="font-size:0.82rem; margin-top:14px; display:inline-flex">Voir grille tarifaire complète <i class="fas fa-arrow-right"></i></a>
+          </div>
+
+        </div>
+        <!-- END SIDEBAR -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ DEVIS -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Processus de devis</span>
+        <h2>Vos questions sur le processus de devis et de réservation</h2>
+      </div>
+      <div class="faq-list" role="list">
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            Combien de temps pour recevoir mon devis ?
+            <span class="faq-chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Nous traitons les demandes de devis dans un délai maximum de <strong>2 heures</strong> pendant les heures de traitement (8h–20h, 7 jours sur 7). Les demandes reçues en soirée tardive ou la nuit reçoivent une réponse le lendemain matin dès 8h. En période de forte demande estivale ou pendant les fêtes, notre équipe dédiée veille à respecter ce délai de 2 heures. Si vous êtes pressé, appelez-nous directement au <a href="tel:+3225551234">+32 2 555 12 34</a> pour un tarif immédiat.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            Mon devis est-il contraignant ?
+            <span class="faq-chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Non, recevoir un devis ne vous engage absolument à rien. Le devis est une <strong>proposition commerciale valable 15 jours</strong> à compter de sa date d'émission. Vous restez entièrement libre de l'accepter, de le refuser, de demander des modifications ou de choisir un autre prestataire. Aucun acompte n'est prélevé avant que vous n'ayez explicitement confirmé votre réservation par écrit ou par téléphone.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            Puis-je demander plusieurs options dans le même devis ?
+            <span class="faq-chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Oui, absolument. Dans le champ "Message / détails supplémentaires" du formulaire, vous pouvez préciser que vous souhaitez comparer <strong>plusieurs types de véhicules</strong>, plusieurs formules horaires (demi-journée vs journée), avec ou sans options. Nous vous enverrons un <strong>devis multi-options</strong> structuré et clair, vous permettant de choisir en toute connaissance de cause sans avoir à faire plusieurs demandes séparées.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false">
+            Comment se passe la confirmation de réservation ?
+            <span class="faq-chevron" aria-hidden="true">▼</span>
+          </button>
+          <div class="faq-answer">
+            <p>Une fois votre devis accepté, nous vous envoyons un <strong>bon de réservation officiel</strong> par e-mail avec tous les détails de votre mission. Un <strong>acompte de 30%</strong> du montant total est demandé pour confirmer définitivement votre réservation et réserver le véhicule. Le solde de 70% est réglé au plus tard la veille du départ par virement bancaire, ou sur facture sous 30 jours pour les entreprises avec compte client ouvert. Vous recevez les coordonnées de votre chauffeur <strong>24 heures avant le départ</strong>.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- REASSURANCE FINALE -->
+  <section class="section section-bg">
+    <div class="container">
+      <div style="max-width:720px; margin:0 auto; text-align:center">
+        <div style="width:64px; height:64px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:1.8rem; color:var(--primary)">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h2 style="margin-bottom:16px">Votre satisfaction, notre priorité depuis 15 ans</h2>
+        <p>Chaque demande de devis est traitée personnellement par un membre de notre équipe, jamais par un robot ou un système automatisé. Nous prenons le temps de comprendre votre projet pour vous proposer la solution la mieux adaptée à votre groupe et à votre budget. Si notre offre ne vous convient pas, nous vous le dirons honnêtement et vous orienterons si nécessaire.</p>
+        <p>Plus de <strong>500 clients satisfaits</strong> à Bruxelles font confiance à bus.brussels chaque année pour leurs déplacements en groupe. Notre note moyenne de <strong>4,9/5</strong> sur plus de 380 avis vérifiés reflète notre engagement quotidien envers la qualité, la ponctualité et la transparence tarifaire.</p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px; margin-top:28px">
+          <a href="tel:+3225551234" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-phone"></i> +32 2 555 12 34
+          </a>
+          <a href="mailto:info@bus.brussels" class="btn btn-outline-primary btn-lg">
+            <i class="fas fa-envelope"></i> info@bus.brussels
+          </a>
+          <a href="https://wa.me/3225551234" class="btn btn-whatsapp btn-lg" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><div class="logo-bus-icon"><i class="fas fa-bus"></i></div><span>bus<span>.brussels</span></span></a>
+          <p>Votre partenaire de confiance pour la location de bus avec chauffeur à Bruxelles depuis plus de 15 ans.</p>
+          <div class="footer-contact-item"><i class="fas fa-phone"></i><a href="tel:+3225551234">+32 2 555 12 34</a></div>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><a href="mailto:info@bus.brussels">info@bus.brussels</a></div>
+        </div>
+        <div class="footer-col"><h4>Nos Services</h4><nav class="footer-links">
+          <a href="location-bus-bruxelles.html">Location Bus Bruxelles</a>
+          <a href="bus-avec-chauffeur.html">Bus avec Chauffeur</a>
+          <a href="bus-scolaire-bruxelles.html">Bus Scolaire</a>
+          <a href="bus-evenement-bruxelles.html">Bus Événementiel</a>
+          <a href="bus-entreprise-bruxelles.html">Bus Entreprise</a>
+          <a href="bus-touristique-bruxelles.html">Bus Touristique</a>
+          <a href="navette-aeroport-bruxelles.html">Navette Aéroport</a>
+        </nav></div>
+        <div class="footer-col"><h4>Communes</h4><nav class="footer-links">
+          <a href="bus-anderlecht.html">Bus Anderlecht</a>
+          <a href="bus-ixelles.html">Bus Ixelles</a>
+          <a href="bus-schaerbeek.html">Bus Schaerbeek</a>
+          <a href="bus-molenbeek.html">Bus Molenbeek</a>
+          <a href="bus-uccle.html">Bus Uccle</a>
+          <a href="bus-etterbeek.html">Bus Etterbeek</a>
+          <a href="bus-woluwe-saint-lambert.html">Bus Woluwe-S-L</a>
+          <a href="bus-woluwe-saint-pierre.html">Bus Woluwe-S-P</a>
+        </nav></div>
+        <div class="footer-col"><h4>Informations</h4><nav class="footer-links">
+          <a href="prix-location-bus.html">Tarifs &amp; Prix</a>
+          <a href="devis-bus-bruxelles.html">Devis Gratuit</a>
+        </nav></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;width:100%"><span>© 2024 bus.brussels — Tous droits réservés</span><div class="footer-bottom-links"><a href="#">Mentions légales</a><a href="#">Politique de confidentialité</a></div></div></div>
+  </footer>
+
+  <div class="sticky-cta">
+    <a href="#formulaire" class="btn btn-primary"><i class="fas fa-paper-plane"></i> <span class="hide-mobile">Remplir le formulaire</span></a>
+    <a href="tel:+3225551234" class="btn btn-white" style="border:1px solid var(--border)"><i class="fas fa-phone" style="color:var(--primary)"></i></a>
+  </div>
+  <script src="js/main.js" defer></script>
+  <script>
+    // Devis form submission handler
+    document.getElementById('devisForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      this.style.display = 'none';
+      document.getElementById('devisSuccess').style.display = 'block';
+      window.scrollTo({ top: document.querySelector('.devis-card').offsetTop - 100, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
