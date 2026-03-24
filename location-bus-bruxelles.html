@@ -75,39 +75,94 @@
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
   <!-- NAVIGATION -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Navigation principale">
     <div class="container">
-      <a href="index.html" class="logo"><img src="https://ik.imagekit.io/9nqnnkvba/bus-brussels-logo.png" alt="bus.brussels" class="logo-img" height="40"></a>
-      <button class="menu-toggle" id="menuToggle" aria-expanded="false"><span></span><span></span><span></span></button>
+      <a href="index.html" class="logo">
+        <img src="https://ik.imagekit.io/9nqnnkvba/bus-brussels-logo.png" alt="bus.brussels" class="logo-img" height="40">
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Accueil</a></li>
-        <li class="dropdown"><a href="location-bus-bruxelles.html">Services <i class="fas fa-chevron-down" style="font-size:0.65rem"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="location-bus-bruxelles.html">Location Bus Bruxelles</a></li>
-            <li><a href="bus-avec-chauffeur.html">Bus avec Chauffeur</a></li>
-            <li><a href="bus-scolaire-bruxelles.html">Bus Scolaire</a></li>
-            <li><a href="bus-evenement-bruxelles.html">Bus Événementiel</a></li>
-            <li><a href="bus-entreprise-bruxelles.html">Bus Entreprise</a></li>
-            <li><a href="bus-touristique-bruxelles.html">Bus Touristique</a></li>
-            <li><a href="navette-aeroport-bruxelles.html">Navette Aéroport</a></li>
-          </ul>
+
+        <li class="mega-item">
+          <a href="location-bus-bruxelles.html" class="mega-trigger" aria-haspopup="true" aria-expanded="false">
+            Services <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </a>
+          <div class="mega-menu" role="region" aria-label="Menu Services">
+            <div class="mega-inner">
+              <div class="mega-col">
+                <p class="mega-heading"><i class="fas fa-concierge-bell" aria-hidden="true"></i> Nos Services</p>
+                <ul>
+                  <li><a href="location-bus-bruxelles.html"><span class="mega-icon"><i class="fas fa-bus" aria-hidden="true"></i></span><span><strong>Location Bus Bruxelles</strong><small>Du minibus au grand autocar</small></span></a></li>
+                  <li><a href="bus-avec-chauffeur.html"><span class="mega-icon"><i class="fas fa-user-tie" aria-hidden="true"></i></span><span><strong>Bus avec Chauffeur</strong><small>Chauffeurs professionnels</small></span></a></li>
+                  <li><a href="bus-scolaire-bruxelles.html"><span class="mega-icon"><i class="fas fa-school" aria-hidden="true"></i></span><span><strong>Bus Scolaire</strong><small>Transport sécurisé pour écoles</small></span></a></li>
+                  <li><a href="bus-evenement-bruxelles.html"><span class="mega-icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span><span><strong>Bus Événementiel</strong><small>Mariages, soirées, concerts</small></span></a></li>
+                </ul>
+              </div>
+              <div class="mega-col">
+                <p class="mega-heading"><i class="fas fa-star" aria-hidden="true"></i> Spécialités</p>
+                <ul>
+                  <li><a href="bus-entreprise-bruxelles.html"><span class="mega-icon"><i class="fas fa-building" aria-hidden="true"></i></span><span><strong>Bus Entreprise</strong><small>Navettes corporate &amp; séminaires</small></span></a></li>
+                  <li><a href="bus-touristique-bruxelles.html"><span class="mega-icon"><i class="fas fa-landmark" aria-hidden="true"></i></span><span><strong>Bus Touristique</strong><small>Visites &amp; excursions guidées</small></span></a></li>
+                  <li><a href="navette-aeroport-bruxelles.html"><span class="mega-icon"><i class="fas fa-plane-departure" aria-hidden="true"></i></span><span><strong>Navette Aéroport</strong><small>Brussels Airport &amp; Charleroi</small></span></a></li>
+                  <li><a href="prix-location-bus.html"><span class="mega-icon"><i class="fas fa-tag" aria-hidden="true"></i></span><span><strong>Nos Tarifs</strong><small>Grilles de prix transparentes</small></span></a></li>
+                </ul>
+              </div>
+              <div class="mega-col mega-featured">
+                <div class="mega-promo">
+                  <div class="mega-promo-icon"><i class="fas fa-paper-plane" aria-hidden="true"></i></div>
+                  <h4>Devis en 2 heures</h4>
+                  <p>Gratuit, sans engagement. Disponible 7j/7.</p>
+                  <a href="devis-bus-bruxelles.html" class="btn-mega-cta">Obtenir un devis gratuit</a>
+                  <div class="mega-promo-badges">
+                    <span><i class="fas fa-shield-alt" aria-hidden="true"></i> Certifié</span>
+                    <span><i class="fas fa-star" aria-hidden="true"></i> 4,9/5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
-        <li class="dropdown"><a href="#">Communes <i class="fas fa-chevron-down" style="font-size:0.65rem"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="bus-anderlecht.html">Anderlecht</a></li>
-            <li><a href="bus-ixelles.html">Ixelles</a></li>
-            <li><a href="bus-schaerbeek.html">Schaerbeek</a></li>
-            <li><a href="bus-molenbeek.html">Molenbeek</a></li>
-            <li><a href="bus-uccle.html">Uccle</a></li>
-            <li><a href="bus-etterbeek.html">Etterbeek</a></li>
-            <li><a href="bus-woluwe-saint-lambert.html">Woluwe-Saint-Lambert</a></li>
-            <li><a href="bus-woluwe-saint-pierre.html">Woluwe-Saint-Pierre</a></li>
-          </ul>
+
+        <li class="mega-item">
+          <a href="#" class="mega-trigger" aria-haspopup="true" aria-expanded="false">
+            Communes <i class="fas fa-chevron-down" aria-hidden="true"></i>
+          </a>
+          <div class="mega-menu" role="region" aria-label="Menu Communes">
+            <div class="mega-inner">
+              <div class="mega-col mega-col-wide">
+                <p class="mega-heading"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Zones desservies à Bruxelles</p>
+                <ul class="mega-grid">
+                  <li><a href="bus-anderlecht.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Anderlecht</a></li>
+                  <li><a href="bus-ixelles.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Ixelles</a></li>
+                  <li><a href="bus-schaerbeek.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Schaerbeek</a></li>
+                  <li><a href="bus-molenbeek.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Molenbeek</a></li>
+                  <li><a href="bus-uccle.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Uccle</a></li>
+                  <li><a href="bus-etterbeek.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Etterbeek</a></li>
+                  <li><a href="bus-woluwe-saint-lambert.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Woluwe-St-Lambert</a></li>
+                  <li><a href="bus-woluwe-saint-pierre.html"><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Woluwe-St-Pierre</a></li>
+                </ul>
+              </div>
+              <div class="mega-col mega-featured">
+                <div class="mega-promo">
+                  <div class="mega-promo-icon"><i class="fas fa-map" aria-hidden="true"></i></div>
+                  <h4>Toute la Région</h4>
+                  <p>19 communes couvertes, disponible 7j/7.</p>
+                  <a href="devis-bus-bruxelles.html" class="btn-mega-cta">Demander un devis</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
+
         <li><a href="prix-location-bus.html">Tarifs</a></li>
         <li><a href="devis-bus-bruxelles.html" class="btn-nav">Devis Gratuit</a></li>
       </ul>
-      <div class="nav-contact"><a href="tel:+3225551234" class="phone-link"><i class="fas fa-phone"></i> +32 2 555 12 34</a></div>
+      <div class="nav-contact">
+        <a href="tel:+3225551234" class="phone-link"><i class="fas fa-phone" aria-hidden="true"></i> +32 2 555 12 34</a>
+      </div>
     </div>
   </nav>
 

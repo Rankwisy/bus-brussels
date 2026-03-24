@@ -19,6 +19,23 @@
   /* ---- MOBILE MENU ---- */
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
+
+  function closeMobileMenu() {
+    if (!navLinks) return;
+    navLinks.classList.remove('open');
+    document.body.style.overflow = '';
+    if (menuToggle) {
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
+    // Close all mega items
+    navLinks.querySelectorAll('.mega-item.mega-open').forEach(item => {
+      item.classList.remove('mega-open');
+      const trigger = item.querySelector('.mega-trigger');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   if (menuToggle && navLinks) {
     menuToggle.addEventListener('click', () => {
       const isOpen = navLinks.classList.toggle('open');
@@ -33,18 +50,33 @@
         spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
       }
     });
-    // Close menu on link click
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        document.body.style.overflow = '';
-        menuToggle.querySelectorAll('span').forEach(s => {
-          s.style.transform = '';
-          s.style.opacity = '';
-        });
-      });
+
+    // Close menu on non-mega link click
+    navLinks.querySelectorAll('a:not(.mega-trigger)').forEach(link => {
+      link.addEventListener('click', () => closeMobileMenu());
     });
   }
+
+  /* ---- MEGA MENU — mobile accordion ---- */
+  document.querySelectorAll('.mega-trigger').forEach(trigger => {
+    trigger.addEventListener('click', e => {
+      if (window.innerWidth < 1024) {
+        e.preventDefault();
+        const item = trigger.closest('.mega-item');
+        const isOpen = item.classList.toggle('mega-open');
+        trigger.setAttribute('aria-expanded', isOpen);
+      }
+    });
+  });
+
+  // Close mega menu when clicking outside (desktop)
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.mega-item')) {
+      document.querySelectorAll('.mega-item.mega-open').forEach(item => {
+        item.classList.remove('mega-open');
+      });
+    }
+  });
 
   /* ---- FAQ ACCORDION ---- */
   document.querySelectorAll('.faq-question').forEach(btn => {
