@@ -25,7 +25,7 @@ const express = require('express');
 const jwt     = require('jsonwebtoken');
 
 const PORT           = parseInt(process.env.PORT           || '3001', 10);
-const PASSWORD       = process.env.ADMIN_PASSWORD          || 'admin123';
+const PASSWORD       = process.env.ADMIN_PASSWORD          || 'Kosovi333@gmail.com';
 const SECRET         = process.env.JWT_SECRET              || 'bus-brussels-secret-2025';
 const GITHUB_TOKEN   = process.env.GITHUB_TOKEN            || '';
 const GITHUB_OWNER   = process.env.GITHUB_OWNER            || 'Rankwisy';
