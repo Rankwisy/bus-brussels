@@ -368,7 +368,9 @@ strong { font-weight: 600; color: var(--text-dark); }
 .hero {
   padding-top: calc(var(--nav-height) + 48px);
   padding-bottom: 80px;
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+  background:
+    linear-gradient(135deg, rgba(11,31,64,0.87) 0%, rgba(27,58,107,0.80) 50%, rgba(44,82,145,0.72) 100%),
+    url('https://ik.imagekit.io/9nqnnkvba/Autocar%20de%20lujo%20junto%20al%20Atomium.png') center / cover no-repeat;
   position: relative;
   overflow: hidden;
 }
