@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — bus.brussels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     LOGIN SCREEN
+════════════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-card">
+    <img class="login-logo" src="https://ik.imagekit.io/9nqnnkvba/bus-brussels-logo.png" alt="bus.brussels">
+    <h1>Administration</h1>
+    <p class="subtitle">Accès réservé à l'équipe bus.brussels</p>
+    <form id="login-form" autocomplete="off">
+      <label for="login-password">Mot de passe</label>
+      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required>
+      <button type="submit" class="btn-login"><i class="fas fa-sign-in-alt"></i> Se connecter</button>
+    </form>
+    <div id="login-error" class="login-error"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ADMIN LAYOUT
+════════════════════════════════════════════════════════ -->
+<div id="admin-layout" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <img src="https://ik.imagekit.io/9nqnnkvba/bus-brussels-logo.png" alt="bus.brussels">
+    </div>
+
+    <div class="sidebar-label">Navigation</div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-screen="dashboard">
+        <i class="fas fa-tachometer-alt"></i> Tableau de bord
+      </button>
+      <button class="nav-item" data-screen="articles">
+        <i class="fas fa-newspaper"></i> Articles
+      </button>
+      <button class="nav-item" data-action="new-post">
+        <i class="fas fa-plus-circle"></i> Nouveau article
+      </button>
+      <button class="nav-item" data-screen="settings">
+        <i class="fas fa-cog"></i> Paramètres
+      </button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <button class="btn-logout" id="btn-logout">
+        <i class="fas fa-sign-out-alt"></i> Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- MAIN AREA -->
+  <div class="main-area">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div id="topbar-title" class="topbar-title">Tableau de bord</div>
+        <div id="topbar-crumb" class="topbar-breadcrumb">Admin / Tableau de bord</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-orange" data-action="generate">
+          <i class="fas fa-sync-alt"></i> Regénérer blog.html
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div class="content-area">
+
+      <!-- ════════════════════════════════════════════════
+           SCREEN: DASHBOARD
+      ════════════════════════════════════════════════ -->
+      <div id="screen-dashboard" class="screen active">
+
+        <!-- KPI Cards -->
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+            <div>
+              <div id="stat-total" class="stat-value">—</div>
+              <div class="stat-label">Total articles</div>
+            </div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+            <div>
+              <div id="stat-published" class="stat-value">—</div>
+              <div class="stat-label">Publiés</div>
+            </div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-icon"><i class="fas fa-pencil-alt"></i></div>
+            <div>
+              <div id="stat-drafts" class="stat-value">—</div>
+              <div class="stat-label">Brouillons</div>
+            </div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+            <div>
+              <div id="stat-lastpub" class="stat-value">—</div>
+              <div class="stat-label">Dernière publi.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="action-bar">
+          <button class="btn btn-primary" data-action="new-post"><i class="fas fa-plus"></i> Nouveau article</button>
+          <button class="btn btn-orange"  data-action="generate"><i class="fas fa-sync-alt"></i> Regénérer blog.html</button>
+          <button class="btn btn-outline" data-action="export"><i class="fas fa-download"></i> Exporter JSON</button>
+        </div>
+
+        <!-- Recent posts -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fas fa-clock"></i> Articles récents</div>
+            <button class="btn btn-ghost btn-sm" data-screen="articles" onclick="navigate('articles')">Voir tous</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Titre</th>
+                  <th>Catégorie</th>
+                  <th>Statut</th>
+                  <th>Modifié</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="recent-posts-body">
+                <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-light)">Chargement…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SEO Health -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fas fa-heartbeat"></i> Santé SEO</div>
+          </div>
+          <div class="seo-health-grid">
+            <div class="health-item">
+              <div id="health-missing-title" class="value">—</div>
+              <div class="label">Sans méta titre</div>
+            </div>
+            <div class="health-item">
+              <div id="health-missing-desc" class="value">—</div>
+              <div class="label">Sans méta description</div>
+            </div>
+            <div class="health-item">
+              <div id="health-low-score" class="value">—</div>
+              <div class="label">Score SEO &lt; 50</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /screen-dashboard -->
+
+
+      <!-- ════════════════════════════════════════════════
+           SCREEN: ARTICLES
+      ════════════════════════════════════════════════ -->
+      <div id="screen-articles" class="screen">
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fas fa-list"></i> Tous les articles</div>
+            <button class="btn btn-primary" data-action="new-post"><i class="fas fa-plus"></i> Nouveau</button>
+          </div>
+
+          <!-- Filters -->
+          <div class="filter-bar">
+            <input type="text" id="filter-search" class="filter-search" placeholder="Rechercher un article…">
+            <select id="filter-status">
+              <option value="">Tous les statuts</option>
+              <option value="published">Publié</option>
+              <option value="draft">Brouillon</option>
+            </select>
+            <select id="filter-cat">
+              <option value="">Toutes catégories</option>
+              <option value="actus">Actualités</option>
+              <option value="guide">Guide pratique</option>
+              <option value="prix">Prix & Tarifs</option>
+              <option value="scolaire">Transport scolaire</option>
+              <option value="events">Événements</option>
+              <option value="entreprise">Transport entreprise</option>
+              <option value="conseils">Conseils</option>
+            </select>
+          </div>
+
+          <!-- Bulk bar -->
+          <div id="bulk-bar" class="bulk-bar">
+            <i class="fas fa-check-square"></i>
+            <span><strong id="bulk-count">0</strong> sélectionnés</span>
+            <button class="btn btn-sm btn-danger" onclick="bulkDelete()"><i class="fas fa-trash"></i> Supprimer</button>
+          </div>
+
+          <!-- Table -->
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="check-all" onchange="toggleCheckAll(this)"></th>
+                  <th>Titre</th>
+                  <th>Catégorie</th>
+                  <th>Statut</th>
+                  <th>Score SEO</th>
+                  <th>Modifié</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="articles-tbody">
+                <tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-light)">Chargement…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div><!-- /screen-articles -->
+
+
+      <!-- ════════════════════════════════════════════════
+           SCREEN: EDITOR
+      ════════════════════════════════════════════════ -->
+      <div id="screen-editor" class="screen">
+        <div class="editor-layout">
+
+          <!-- LEFT COLUMN -->
+          <div class="editor-left">
+
+            <!-- 1. Identité -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fas fa-id-card"></i> Identité</div>
+              </div>
+
+              <div class="form-group">
+                <label for="ed-title">Titre <span id="counter-title" class="char-counter">0/100</span></label>
+                <input type="text" id="ed-title" maxlength="100" placeholder="Titre de l'article…">
+              </div>
+
+              <div class="form-group">
+                <label for="ed-slug">
+                  Slug (URL)
+                  <label style="font-weight:400;font-size:0.75rem;display:inline-flex;align-items:center;gap:4px;margin-left:8px">
+                    <input type="checkbox" id="slug-edited"> modifier manuellement
+                  </label>
+                </label>
+                <input type="text" id="ed-slug" placeholder="mon-slug-url">
+                <div id="slug-preview" class="slug-preview"></div>
+              </div>
+
+              <div class="form-group">
+                <label>Statut</label>
+                <div class="radio-group">
+                  <label class="radio-label"><input type="radio" name="status" id="status-draft" value="draft" checked> Brouillon</label>
+                  <label class="radio-label"><input type="radio" name="status" id="status-published" value="published"> Publié</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="ed-featured"> Article à la une (featured)
+                </label>
+              </div>
+            </div>
+
+            <!-- 2. Contenu -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fas fa-align-left"></i> Contenu</div>
+              </div>
+
+              <div class="form-group">
+                <label for="ed-category">Catégorie</label>
+                <select id="ed-category">
+                  <option value="actus">Actualités</option>
+                  <option value="guide" selected>Guide pratique</option>
+                  <option value="prix">Prix & Tarifs</option>
+                  <option value="scolaire">Transport scolaire</option>
+                  <option value="events">Événements</option>
+                  <option value="entreprise">Transport entreprise</option>
+                  <option value="conseils">Conseils</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="position:relative">
+                <label for="ed-icon">Icône Font Awesome</label>
+                <div style="display:flex;gap:8px">
+                  <input type="text" id="ed-icon" placeholder="fa-book-open" style="flex:1">
+                  <button type="button" class="btn btn-ghost btn-sm" id="icon-picker-btn"><i class="fas fa-icons"></i></button>
+                </div>
+                <div id="icon-picker-popup" class="icon-picker-popup">
+                  <div class="icon-picker-item" data-icon="fa-book-open"       title="fa-book-open"><i class="fas fa-book-open"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-bolt"             title="fa-bolt"><i class="fas fa-bolt"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-tag"              title="fa-tag"><i class="fas fa-tag"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-graduation-cap"   title="fa-graduation-cap"><i class="fas fa-graduation-cap"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-calendar-alt"     title="fa-calendar-alt"><i class="fas fa-calendar-alt"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-briefcase"        title="fa-briefcase"><i class="fas fa-briefcase"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-lightbulb"        title="fa-lightbulb"><i class="fas fa-lightbulb"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-bus"              title="fa-bus"><i class="fas fa-bus"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-plane"            title="fa-plane"><i class="fas fa-plane"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-heart"            title="fa-heart"><i class="fas fa-heart"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-map-marker-alt"   title="fa-map-marker-alt"><i class="fas fa-map-marker-alt"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-euro-sign"        title="fa-euro-sign"><i class="fas fa-euro-sign"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-city"             title="fa-city"><i class="fas fa-city"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-route"            title="fa-route"><i class="fas fa-route"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-leaf"             title="fa-leaf"><i class="fas fa-leaf"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-school"           title="fa-school"><i class="fas fa-school"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-building"         title="fa-building"><i class="fas fa-building"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-landmark"         title="fa-landmark"><i class="fas fa-landmark"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-map"              title="fa-map"><i class="fas fa-map"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-search"           title="fa-search"><i class="fas fa-search"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-star"             title="fa-star"><i class="fas fa-star"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-users"            title="fa-users"><i class="fas fa-users"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-clock"            title="fa-clock"><i class="fas fa-clock"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-chart-bar"        title="fa-chart-bar"><i class="fas fa-chart-bar"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-check-circle"     title="fa-check-circle"><i class="fas fa-check-circle"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-info-circle"      title="fa-info-circle"><i class="fas fa-info-circle"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-exclamation-triangle" title="fa-exclamation-triangle"><i class="fas fa-exclamation-triangle"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-handshake"        title="fa-handshake"><i class="fas fa-handshake"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-tools"            title="fa-tools"><i class="fas fa-tools"></i></div>
+                  <div class="icon-picker-item" data-icon="fa-fire"             title="fa-fire"><i class="fas fa-fire"></i></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="ed-excerpt">Extrait <span id="counter-excerpt" class="char-counter">0/200</span></label>
+                <textarea id="ed-excerpt" rows="3" maxlength="200" placeholder="Court résumé de l'article (max 200 caractères)…"></textarea>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div class="form-group">
+                  <label for="ed-date">Date d'affichage</label>
+                  <input type="text" id="ed-date" placeholder="20 mars 2025">
+                </div>
+                <div class="form-group">
+                  <label for="ed-read-time">Temps de lecture (min)</label>
+                  <input type="number" id="ed-read-time" min="1" max="60" value="5">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Tags</label>
+                <div id="tags-wrap" class="tags-input-wrap">
+                  <input id="tags-input" class="tags-input" placeholder="Ajouter un tag… (Entrée pour valider)">
+                </div>
+                <div class="hint">Appuyez sur Entrée pour ajouter un tag. Cliquez sur un tag pour le supprimer.</div>
+              </div>
+            </div>
+
+            <!-- 3. Corps -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fas fa-code"></i> Corps de l'article</div>
+                <button type="button" class="btn btn-ghost btn-sm" id="btn-preview-body">Aperçu</button>
+              </div>
+
+              <div class="editor-toolbar">
+                <button type="button" class="toolbar-btn" data-format="bold" title="Gras"><i class="fas fa-bold"></i></button>
+                <button type="button" class="toolbar-btn" data-format="italic" title="Italique"><i class="fas fa-italic"></i></button>
+                <div class="toolbar-sep"></div>
+                <button type="button" class="toolbar-btn" data-format="h2" title="H2">H2</button>
+                <button type="button" class="toolbar-btn" data-format="h3" title="H3">H3</button>
+                <div class="toolbar-sep"></div>
+                <button type="button" class="toolbar-btn" data-format="ul" title="Liste non ordonnée"><i class="fas fa-list-ul"></i></button>
+                <button type="button" class="toolbar-btn" data-format="ol" title="Liste ordonnée"><i class="fas fa-list-ol"></i></button>
+                <div class="toolbar-sep"></div>
+                <button type="button" class="toolbar-btn" data-format="link" title="Lien"><i class="fas fa-link"></i></button>
+                <button type="button" class="toolbar-btn" data-format="quote" title="Citation"><i class="fas fa-quote-left"></i></button>
+              </div>
+              <textarea id="ed-body" class="editor-body-textarea" placeholder="Écrivez le HTML du corps de l'article ici…"></textarea>
+              <div id="preview-pane" class="preview-pane"></div>
+            </div>
+
+            <!-- 4. Médias -->
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title"><i class="fas fa-image"></i> Médias</div>
+              </div>
+              <div class="form-group">
+                <label for="ed-img-url">URL de l'image</label>
+                <input type="url" id="ed-img-url" placeholder="https://…">
+                <img id="ed-img-preview" class="img-preview" src="" alt="Aperçu">
+              </div>
+              <div class="form-group">
+                <label for="ed-img-alt">Texte alternatif (alt)</label>
+                <input type="text" id="ed-img-alt" placeholder="Description de l'image pour l'accessibilité">
+              </div>
+            </div>
+
+            <!-- 5. Save bar -->
+            <div class="save-bar">
+              <button type="button" class="btn btn-outline" id="btn-save-draft">
+                <i class="fas fa-save"></i> Enregistrer brouillon
+              </button>
+              <button type="button" class="btn btn-orange" id="btn-publish">
+                <i class="fas fa-check-circle"></i> Publier
+              </button>
+              <span id="autosave-label" class="autosave-label"></span>
+            </div>
+
+          </div><!-- /editor-left -->
+
+
+          <!-- RIGHT COLUMN — SEO PANEL -->
+          <div class="editor-right">
+            <div class="seo-panel">
+              <div class="seo-panel-header">
+                <div id="seo-score-big" class="seo-score-big">0</div>
+                <div class="seo-panel-header-text">
+                  <div class="title">Score SEO</div>
+                  <div id="seo-score-subtitle" class="subtitle">Score faible</div>
+                </div>
+              </div>
+
+              <div class="seo-tabs">
+                <button class="seo-tab active" data-tab="seo">SEO</button>
+                <button class="seo-tab" data-tab="serp">Aperçu SERP</button>
+              </div>
+
+              <!-- TAB: SEO -->
+              <div id="seo-tab-seo" class="seo-tab-content active">
+
+                <div class="form-group">
+                  <label for="seo-focus-kw">Mot-clé focus</label>
+                  <input type="text" id="seo-focus-kw" placeholder="Ex: location bus Bruxelles">
+                </div>
+
+                <div class="kw-analysis">
+                  <span id="kw-pill-title" class="kw-pill">Titre</span>
+                  <span id="kw-pill-desc"  class="kw-pill">Méta desc</span>
+                  <span id="kw-pill-body"  class="kw-pill">Contenu</span>
+                </div>
+
+                <div class="progress-row">
+                  <label>
+                    Méta titre
+                    <span id="counter-mt-live" style="font-weight:400">0/60</span>
+                  </label>
+                  <div class="form-group" style="margin-bottom:6px">
+                    <input type="text" id="seo-meta-title" placeholder="Titre pour les moteurs de recherche (30–60 car.)">
+                  </div>
+                  <div class="progress-bar-wrap">
+                    <div id="pb-meta-title" class="progress-bar-fill" style="width:0%"></div>
+                  </div>
+                </div>
+
+                <div class="progress-row">
+                  <label>
+                    Méta description
+                    <span id="counter-md-live" style="font-weight:400">0/160</span>
+                  </label>
+                  <div class="form-group" style="margin-bottom:6px">
+                    <textarea id="seo-meta-desc" rows="3" placeholder="Description pour les moteurs de recherche (120–160 car.)"></textarea>
+                  </div>
+                  <div class="progress-bar-wrap">
+                    <div id="pb-meta-desc" class="progress-bar-fill" style="width:0%"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="seo-canonical">URL canonique</label>
+                  <input type="url" id="seo-canonical" placeholder="https://bus.brussels/blog/slug.html">
+                </div>
+
+                <div class="form-group">
+                  <label for="seo-og-title">
+                    OG Title
+                    <span id="copy-meta-og-title" class="copy-meta">Copier méta titre</span>
+                  </label>
+                  <input type="text" id="seo-og-title" placeholder="Titre pour les réseaux sociaux">
+                </div>
+
+                <div class="form-group">
+                  <label for="seo-og-desc">
+                    OG Description
+                    <span id="copy-meta-og-desc" class="copy-meta">Copier méta desc</span>
+                  </label>
+                  <textarea id="seo-og-desc" rows="2" placeholder="Description pour les réseaux sociaux"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="seo-og-image">OG Image URL</label>
+                  <input type="url" id="seo-og-image" placeholder="https://…">
+                </div>
+
+                <div class="form-group">
+                  <label for="seo-schema">Schema JSON-LD</label>
+                  <textarea id="seo-schema" rows="4" placeholder='{"@context":"https://schema.org","@type":"Article"…}'></textarea>
+                </div>
+
+                <div>
+                  <div class="card-title" style="font-size:0.82rem;margin-bottom:10px"><i class="fas fa-list-check"></i> Checklist SEO</div>
+                  <div id="seo-checklist" class="seo-checklist">
+                    <!-- Populated by JS -->
+                  </div>
+                </div>
+              </div><!-- /seo-tab-seo -->
+
+              <!-- TAB: SERP Preview -->
+              <div id="seo-tab-serp" class="seo-tab-content">
+                <div style="font-size:0.78rem;color:var(--text-light);margin-bottom:12px">Aperçu dans les résultats Google</div>
+
+                <div class="serp-preview">
+                  <div id="serp-url"   class="serp-url">bus.brussels › blog › …</div>
+                  <div id="serp-title" class="serp-title">Titre non défini</div>
+                  <div id="serp-desc"  class="serp-desc">Description non définie…</div>
+                </div>
+
+                <div style="font-size:0.78rem;color:var(--text-light);margin-bottom:8px;margin-top:16px">Aperçu carte réseaux sociaux</div>
+                <div class="og-preview">
+                  <div class="og-image-placeholder">
+                    <img id="og-preview-img" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover">
+                    <i class="fas fa-image" id="og-placeholder-icon"></i>
+                  </div>
+                  <div class="og-body">
+                    <div class="og-site">bus.brussels</div>
+                    <div id="og-preview-title" class="og-title">Titre OG</div>
+                    <div id="og-preview-desc"  class="og-desc">Description OG…</div>
+                  </div>
+                </div>
+              </div><!-- /seo-tab-serp -->
+
+            </div><!-- /seo-panel -->
+          </div><!-- /editor-right -->
+
+        </div><!-- /editor-layout -->
+      </div><!-- /screen-editor -->
+
+
+      <!-- ════════════════════════════════════════════════
+           SCREEN: PARAMÈTRES
+      ════════════════════════════════════════════════ -->
+      <div id="screen-settings" class="screen">
+        <div class="settings-grid">
+
+          <!-- Site settings -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-globe"></i> Paramètres du site</div>
+            </div>
+            <div class="form-group">
+              <label for="s-base-url">URL de base</label>
+              <input type="url" id="s-base-url" value="https://bus.brussels" placeholder="https://bus.brussels">
+            </div>
+            <div class="form-group">
+              <label for="s-blog-path">Chemin du blog</label>
+              <input type="text" id="s-blog-path" value="/blog" placeholder="/blog">
+            </div>
+            <button class="btn btn-primary"><i class="fas fa-save"></i> Enregistrer</button>
+          </div>
+
+          <!-- Change password -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-lock"></i> Changer le mot de passe</div>
+            </div>
+            <form id="change-pw-form" autocomplete="off">
+              <div class="form-group">
+                <label for="pw-current">Mot de passe actuel</label>
+                <input type="password" id="pw-current" placeholder="••••••••" required>
+              </div>
+              <div class="form-group">
+                <label for="pw-new">Nouveau mot de passe</label>
+                <input type="password" id="pw-new" placeholder="••••••••" required>
+              </div>
+              <div class="form-group">
+                <label for="pw-confirm">Confirmer le nouveau mot de passe</label>
+                <input type="password" id="pw-confirm" placeholder="••••••••" required>
+              </div>
+              <button type="submit" class="btn btn-orange"><i class="fas fa-key"></i> Modifier</button>
+            </form>
+          </div>
+
+          <!-- Export / Import -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-database"></i> Données</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <p style="font-size:0.88rem;color:var(--text-medium)">Exportez ou importez l'intégralité des articles en JSON.</p>
+              <button class="btn btn-outline" data-action="export"><i class="fas fa-download"></i> Exporter posts.json</button>
+              <div>
+                <label for="import-file" class="btn btn-ghost" style="cursor:pointer;display:inline-flex">
+                  <i class="fas fa-upload"></i> Importer posts.json
+                </label>
+                <input type="file" id="import-file" accept=".json" style="display:none" onchange="importPosts(this)">
+              </div>
+            </div>
+          </div>
+
+          <!-- About -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><i class="fas fa-info-circle"></i> À propos</div>
+            </div>
+            <p style="font-size:0.88rem;color:var(--text-medium);line-height:1.6">
+              <strong>bus.brussels Admin</strong> v1.0.0<br>
+              Dashboard d'administration pour le blog bus.brussels.<br><br>
+              Serveur : <code>http://127.0.0.1:3001</code><br>
+              Port : <code>3001</code>
+            </p>
+          </div>
+
+        </div><!-- /settings-grid -->
+      </div><!-- /screen-settings -->
+
+    </div><!-- /content-area -->
+  </div><!-- /main-area -->
+</div><!-- /admin-layout -->
+
+<!-- Loading overlay -->
+<div id="loading-overlay" class="loading-overlay" style="display:none">
+  <div class="spinner"></div>
+</div>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<script>
+// Inline helpers needed before admin.js
+function toggleCheckAll(cb) {
+  document.querySelectorAll('.row-check').forEach(c => c.checked = cb.checked);
+  updateBulkBar();
+}
+
+function bulkDelete() {
+  const ids = [...document.querySelectorAll('.row-check:checked')].map(c => c.value);
+  if (!ids.length) return;
+  if (!confirm('Supprimer ' + ids.length + ' article(s) ?')) return;
+  Promise.all(ids.map(id => api('DELETE', '/api/posts/' + id)))
+    .then(() => { showToast(ids.length + ' article(s) supprimé(s)', 'success'); loadArticles(); })
+    .catch(err => showToast('Erreur: ' + err.message, 'error'));
+}
+
+function importPosts(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!data.posts) throw new Error('Format invalide (champ "posts" manquant)');
+      // For each post, upsert
+      let count = 0;
+      for (const post of data.posts) {
+        try {
+          await api('PUT', '/api/posts/' + post.id, post);
+          count++;
+        } catch {
+          await api('POST', '/api/posts', post);
+          count++;
+        }
+      }
+      showToast(count + ' articles importés', 'success');
+    } catch (err) {
+      showToast('Erreur import: ' + err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+}
+</script>
+<script src="admin.js"></script>
+</body>
+</html>
