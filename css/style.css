@@ -972,6 +972,55 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   flex-shrink: 0;
 }
 
+/* ---- LOGO CAROUSEL ---- */
+.logo-carousel-section {
+  padding: 36px 0;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.logo-carousel-label {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-light);
+  margin-bottom: 28px;
+}
+.logo-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+.logo-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  animation: logo-scroll 38s linear infinite;
+}
+.logo-marquee-track img {
+  height: 34px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  filter: grayscale(100%) opacity(0.5);
+  transition: filter 0.3s ease;
+  flex-shrink: 0;
+}
+.logo-marquee-track img:hover {
+  filter: grayscale(0%) opacity(1);
+}
+@keyframes logo-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-track { animation-play-state: paused; }
+}
+
 /* ---- 16. HOW IT WORKS ---- */
 .steps-grid {
   display: grid;
