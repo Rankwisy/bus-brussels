@@ -7,6 +7,5 @@ Allow: /
 # Sitemap location
 Sitemap: https://bus.brussels/sitemap.xml
 
-# Disallow admin or private directories (add as needed)
-# Disallow: /admin/
-# Disallow: /private/
+# Disallow admin or private directories
+Disallow: /admin/
