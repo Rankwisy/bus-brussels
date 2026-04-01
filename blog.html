@@ -984,25 +984,7 @@
 </a>
         </div>
 
-        <!-- Crawlable index of all articles — visually hidden, always present in DOM -->
-        <nav class="sr-only" aria-label="Index de tous les articles">
-          <a href="blog/tout-savoir-location-bus-bruxelles-2025.html">Tout savoir sur la location de bus à Bruxelles en 2025</a>
-          <a href="blog/guerre-moyen-orient-prix-location-autocar-bruxelles-2026.html">Guerre au Moyen-Orient : impact sur les prix de location d'autocar à Bruxelles en 2026</a>
-          <a href="blog/lez-bruxelles-2025-autocars-autorises.html">LEZ Bruxelles 2025 : quels autocars sont autorisés ?</a>
-          <a href="blog/combien-coute-bus-chauffeur-bruxelles-2025.html">Combien coûte un bus avec chauffeur à Bruxelles en 2025 ?</a>
-          <a href="blog/sortie-scolaire-bus-bruxelles-normes-obligations.html">Sortie scolaire en bus à Bruxelles : normes et obligations</a>
-          <a href="blog/navettes-entreprise-bruxelles-pme-grands-groupes.html">Navettes d'entreprise à Bruxelles : PME et grands groupes</a>
-          <a href="blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html">Autocar ou minibus ? Comment choisir selon la taille du groupe</a>
-          <a href="blog/navette-aeroport-zaventem-vs-charleroi-transport-groupe.html">Navette aéroport Zaventem vs Charleroi : transport de groupe</a>
-          <a href="blog/bus-mariage-bruxelles-transporter-invites.html">Bus mariage à Bruxelles : transporter vos invités</a>
-          <a href="blog/top-5-circuits-touristiques-bus-bruxelles-bruges-gand-ardennes.html">Top 5 circuits touristiques en bus depuis Bruxelles</a>
-          <a href="blog/7-questions-reserver-bus-chauffeur-bruxelles.html">7 questions à poser avant de réserver un bus avec chauffeur</a>
-          <a href="blog/plan-mobilite-bruxellois-good-move-impact-bus-groupe-2025.html">Plan Good Move : impact sur les bus de groupe en 2025</a>
-          <a href="blog/evenements-masse-bruxelles-organiser-transport-groupe.html">Événements de masse à Bruxelles : organiser le transport de groupe</a>
-        </nav>
 
-        <!-- PAGINATION -->
-        <div class="pagination" id="blog-pagination" role="navigation" aria-label="Pagination du blog"></div>
 
       </main>
 
@@ -1182,25 +1164,12 @@
     .cat-list .cat-filter-link.active .cat-count { background: var(--primary); color: #fff; }
     [data-cat].hidden-by-filter { display: none !important; }
     .blog-section-title.hidden-by-filter { display: none !important; }
-    /* hidden-by-page: visually absent but stays in DOM so crawlers always see the links */
-    [data-cat].hidden-by-page {
-      position: absolute !important;
-      width: 0 !important; height: 0 !important;
-      overflow: hidden !important; clip: rect(0,0,0,0) !important;
-      opacity: 0 !important; pointer-events: none !important;
-      margin: 0 !important; padding: 0 !important; border: 0 !important;
-    }
-    /* Visually hidden — accessible to crawlers, invisible to users */
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-    .page-ellipsis { padding: 8px 4px; color: var(--text-light); align-self: center; line-height: 1; }
     #filter-status { font-size: 0.88rem; color: var(--text-light); margin: -8px 0 20px; font-style: italic; }
     #filter-no-results { display: none; text-align: center; padding: 48px 24px; color: var(--text-light); font-size: 1rem; }
     #filter-no-results.visible { display: block; }
   </style>
   <script>
   (function() {
-    var ITEMS_PER_PAGE = 6;
-    var currentPage = 1;
     var currentCat = 'all';
 
     function getAllArticles() {
@@ -1217,72 +1186,8 @@
       document.querySelectorAll('.blog-section-title').forEach(function(title) {
         var section = title.nextElementSibling;
         if (!section) return;
-        var visibles = section.querySelectorAll('[data-cat]:not(.hidden-by-filter):not(.hidden-by-page)');
+        var visibles = section.querySelectorAll('[data-cat]:not(.hidden-by-filter)');
         title.classList.toggle('hidden-by-filter', visibles.length === 0);
-      });
-    }
-
-    function renderPagination(page) {
-      currentPage = page;
-      var filtered = getFilteredArticles();
-      var total = filtered.length;
-      var totalPages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE));
-      if (currentPage > totalPages) currentPage = 1;
-
-      var start = (currentPage - 1) * ITEMS_PER_PAGE;
-      var end = start + ITEMS_PER_PAGE;
-
-      // Reset hidden-by-page on all articles
-      getAllArticles().forEach(function(el) { el.classList.remove('hidden-by-page'); });
-
-      // Hide filtered articles outside current page window
-      filtered.forEach(function(el, i) {
-        if (i < start || i >= end) el.classList.add('hidden-by-page');
-      });
-
-      updateSectionTitles();
-
-      // Render pagination buttons
-      var container = document.getElementById('blog-pagination');
-      if (!container) return;
-
-      if (totalPages <= 1) { container.innerHTML = ''; return; }
-
-      var html = '';
-
-      // Previous arrow
-      if (currentPage > 1) {
-        html += '<button class="page-btn page-prev" data-page="' + (currentPage - 1) + '" aria-label="Page précédente"><i class="fas fa-chevron-left"></i></button>';
-      }
-
-      // Page numbers with ellipsis truncation
-      for (var i = 1; i <= totalPages; i++) {
-        var near = i >= currentPage - 2 && i <= currentPage + 2;
-        if (i === 1 || i === totalPages || near) {
-          var cls = 'page-btn' + (i === currentPage ? ' active' : '');
-          var cur = i === currentPage ? ' aria-current="page"' : '';
-          html += '<button class="' + cls + '" data-page="' + i + '" aria-label="Page ' + i + '"' + cur + '>' + i + '</button>';
-        } else if (i === currentPage - 3 || i === currentPage + 3) {
-          html += '<span class="page-ellipsis">…</span>';
-        }
-      }
-
-      // Next arrow
-      if (currentPage < totalPages) {
-        html += '<button class="page-btn page-next" data-page="' + (currentPage + 1) + '" aria-label="Page suivante"><i class="fas fa-chevron-right"></i></button>';
-      }
-
-      container.innerHTML = html;
-
-      container.querySelectorAll('.page-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var p = parseInt(this.dataset.page, 10);
-          if (!isNaN(p)) {
-            renderPagination(p);
-            var main = document.querySelector('.blog-layout main');
-            if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        });
       });
     }
 
@@ -1297,6 +1202,8 @@
           el.classList.add('hidden-by-filter');
         }
       });
+
+      updateSectionTitles();
 
       // Status text
       var filtered = getFilteredArticles();
@@ -1323,9 +1230,6 @@
         var main = document.querySelector('.blog-layout main');
         if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-
-      // Reset to page 1 whenever filter changes
-      renderPagination(1);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1348,9 +1252,6 @@
           filterArticles(this.dataset.filter || 'all');
         });
       });
-
-      // Initial pagination render (all articles, page 1)
-      renderPagination(1);
     });
   })();
   </script>
