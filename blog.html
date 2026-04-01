@@ -1252,7 +1252,7 @@
 
       // Previous arrow
       if (currentPage > 1) {
-        html += '<a href="#" class="page-btn page-prev" data-page="' + (currentPage - 1) + '" aria-label="Page précédente"><i class="fas fa-chevron-left"></i></a>';
+        html += '<button class="page-btn page-prev" data-page="' + (currentPage - 1) + '" aria-label="Page précédente"><i class="fas fa-chevron-left"></i></button>';
       }
 
       // Page numbers with ellipsis truncation
@@ -1261,7 +1261,7 @@
         if (i === 1 || i === totalPages || near) {
           var cls = 'page-btn' + (i === currentPage ? ' active' : '');
           var cur = i === currentPage ? ' aria-current="page"' : '';
-          html += '<a href="#" class="' + cls + '" data-page="' + i + '" aria-label="Page ' + i + '"' + cur + '>' + i + '</a>';
+          html += '<button class="' + cls + '" data-page="' + i + '" aria-label="Page ' + i + '"' + cur + '>' + i + '</button>';
         } else if (i === currentPage - 3 || i === currentPage + 3) {
           html += '<span class="page-ellipsis">…</span>';
         }
@@ -1269,14 +1269,13 @@
 
       // Next arrow
       if (currentPage < totalPages) {
-        html += '<a href="#" class="page-btn page-next" data-page="' + (currentPage + 1) + '" aria-label="Page suivante"><i class="fas fa-chevron-right"></i></a>';
+        html += '<button class="page-btn page-next" data-page="' + (currentPage + 1) + '" aria-label="Page suivante"><i class="fas fa-chevron-right"></i></button>';
       }
 
       container.innerHTML = html;
 
       container.querySelectorAll('.page-btn').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
+        btn.addEventListener('click', function() {
           var p = parseInt(this.dataset.page, 10);
           if (!isNaN(p)) {
             renderPagination(p);
