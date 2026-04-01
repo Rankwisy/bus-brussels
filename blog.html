@@ -974,15 +974,7 @@
         </div>
 
         <!-- PAGINATION -->
-        <div class="pagination" role="navigation" aria-label="Pagination du blog">
-          <a href="#" class="page-btn arrow" aria-label="Page précédente"><i class="fas fa-chevron-left"></i></a>
-          <a href="#" class="page-btn active" aria-current="page">1</a>
-          <a href="#" class="page-btn">2</a>
-          <a href="#" class="page-btn">3</a>
-          <span style="color:var(--text-light); font-size:0.9rem; padding:0 4px">…</span>
-          <a href="#" class="page-btn">8</a>
-          <a href="#" class="page-btn arrow" aria-label="Page suivante"><i class="fas fa-chevron-right"></i></a>
-        </div>
+        <div class="pagination" id="blog-pagination" role="navigation" aria-label="Pagination du blog"></div>
 
       </main>
 
@@ -1160,38 +1152,119 @@
     .cat-filter-link.active { font-weight: 700; }
     .cat-list .cat-filter-link.active span:first-child { color: var(--primary) !important; }
     .cat-list .cat-filter-link.active .cat-count { background: var(--primary); color: #fff; }
-    [data-cat].hidden-by-filter { display: none !important; }
+    [data-cat].hidden-by-filter,
+    [data-cat].hidden-by-page { display: none !important; }
     .blog-section-title.hidden-by-filter { display: none !important; }
+    .page-ellipsis { padding: 8px 4px; color: var(--text-light); align-self: center; line-height: 1; }
     #filter-status { font-size: 0.88rem; color: var(--text-light); margin: -8px 0 20px; font-style: italic; }
     #filter-no-results { display: none; text-align: center; padding: 48px 24px; color: var(--text-light); font-size: 1rem; }
     #filter-no-results.visible { display: block; }
   </style>
   <script>
   (function() {
-    var SECTIONS = ['Derniers articles', 'Guides pratiques', 'Mobilité bruxelloise'];
+    var ITEMS_PER_PAGE = 6;
+    var currentPage = 1;
+    var currentCat = 'all';
+
+    function getAllArticles() {
+      return Array.from(document.querySelectorAll('[data-cat]'));
+    }
+
+    function getFilteredArticles() {
+      return getAllArticles().filter(function(el) {
+        return currentCat === 'all' || el.dataset.cat === currentCat;
+      });
+    }
+
+    function updateSectionTitles() {
+      document.querySelectorAll('.blog-section-title').forEach(function(title) {
+        var section = title.nextElementSibling;
+        if (!section) return;
+        var visibles = section.querySelectorAll('[data-cat]:not(.hidden-by-filter):not(.hidden-by-page)');
+        title.classList.toggle('hidden-by-filter', visibles.length === 0);
+      });
+    }
+
+    function renderPagination(page) {
+      currentPage = page;
+      var filtered = getFilteredArticles();
+      var total = filtered.length;
+      var totalPages = Math.max(1, Math.ceil(total / ITEMS_PER_PAGE));
+      if (currentPage > totalPages) currentPage = 1;
+
+      var start = (currentPage - 1) * ITEMS_PER_PAGE;
+      var end = start + ITEMS_PER_PAGE;
+
+      // Reset hidden-by-page on all articles
+      getAllArticles().forEach(function(el) { el.classList.remove('hidden-by-page'); });
+
+      // Hide filtered articles outside current page window
+      filtered.forEach(function(el, i) {
+        if (i < start || i >= end) el.classList.add('hidden-by-page');
+      });
+
+      updateSectionTitles();
+
+      // Render pagination buttons
+      var container = document.getElementById('blog-pagination');
+      if (!container) return;
+
+      if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+      var html = '';
+
+      // Previous arrow
+      if (currentPage > 1) {
+        html += '<a href="#" class="page-btn page-prev" data-page="' + (currentPage - 1) + '" aria-label="Page précédente"><i class="fas fa-chevron-left"></i></a>';
+      }
+
+      // Page numbers with ellipsis truncation
+      for (var i = 1; i <= totalPages; i++) {
+        var near = i >= currentPage - 2 && i <= currentPage + 2;
+        if (i === 1 || i === totalPages || near) {
+          var cls = 'page-btn' + (i === currentPage ? ' active' : '');
+          var cur = i === currentPage ? ' aria-current="page"' : '';
+          html += '<a href="#" class="' + cls + '" data-page="' + i + '" aria-label="Page ' + i + '"' + cur + '>' + i + '</a>';
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+          html += '<span class="page-ellipsis">…</span>';
+        }
+      }
+
+      // Next arrow
+      if (currentPage < totalPages) {
+        html += '<a href="#" class="page-btn page-next" data-page="' + (currentPage + 1) + '" aria-label="Page suivante"><i class="fas fa-chevron-right"></i></a>';
+      }
+
+      container.innerHTML = html;
+
+      container.querySelectorAll('.page-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var p = parseInt(this.dataset.page, 10);
+          if (!isNaN(p)) {
+            renderPagination(p);
+            var main = document.querySelector('.blog-layout main');
+            if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
 
     function filterArticles(cat) {
-      var allCards = document.querySelectorAll('[data-cat]');
-      var shown = 0;
+      currentCat = cat;
 
-      allCards.forEach(function(el) {
+      // Apply / remove hidden-by-filter
+      getAllArticles().forEach(function(el) {
         if (cat === 'all' || el.dataset.cat === cat) {
           el.classList.remove('hidden-by-filter');
-          shown++;
         } else {
           el.classList.add('hidden-by-filter');
         }
       });
 
-      // Hide section titles if all their articles are hidden
-      document.querySelectorAll('.blog-section-title').forEach(function(title) {
-        var section = title.nextElementSibling;
-        if (!section) return;
-        var visibles = section.querySelectorAll('[data-cat]:not(.hidden-by-filter)');
-        title.classList.toggle('hidden-by-filter', visibles.length === 0);
-      });
-
       // Status text
+      var filtered = getFilteredArticles();
+      var shown = filtered.length;
       var status = document.getElementById('filter-status');
       var noResults = document.getElementById('filter-no-results');
       if (cat === 'all') {
@@ -1204,20 +1277,23 @@
         if (noResults) noResults.classList.toggle('visible', shown === 0);
       }
 
-      // Sync all filter links (sidebar + hero)
+      // Sync active states on all filter links
       document.querySelectorAll('.cat-filter-link').forEach(function(a) {
-        a.classList.toggle('active', a.dataset.filter === cat);
+        a.classList.toggle('active', (a.dataset.filter || 'all') === cat);
       });
 
-      // Scroll to articles
+      // Scroll to articles on filter change
       if (cat !== 'all') {
         var main = document.querySelector('.blog-layout main');
         if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+
+      // Reset to page 1 whenever filter changes
+      renderPagination(1);
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Add status + no-results elements
+      // Inject status + no-results elements
       var mainCol = document.querySelector('.blog-layout main');
       if (mainCol) {
         var status = document.createElement('p');
@@ -1236,6 +1312,9 @@
           filterArticles(this.dataset.filter || 'all');
         });
       });
+
+      // Initial pagination render (all articles, page 1)
+      renderPagination(1);
     });
   })();
   </script>
