@@ -1258,6 +1258,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   font-size: 0.8rem;
   color: rgba(255,255,255,0.4);
 }
+.footer-bottom strong { color: rgba(255,255,255,0.85); }
 .footer-bottom-links { display: flex; gap: 20px; }
 .footer-bottom-links a { color: rgba(255,255,255,0.4); transition: var(--transition); }
 .footer-bottom-links a:hover { color: var(--secondary); }
