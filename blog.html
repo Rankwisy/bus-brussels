@@ -757,13 +757,13 @@
       <h1>Le blog du <span>transport de bus</span> à Bruxelles</h1>
       <p>Actualités, guides pratiques et conseils pour choisir le bon prestataire de bus à Bruxelles. Information indépendante et mise à jour régulièrement.</p>
       <div class="blog-hero-cats">
-        <a href="#" class="blog-hero-cat active">Tout voir</a>
-        <a href="#" class="blog-hero-cat">Actualités</a>
-        <a href="#" class="blog-hero-cat">Guides pratiques</a>
-        <a href="#" class="blog-hero-cat">Prix &amp; Tarifs</a>
-        <a href="#" class="blog-hero-cat">Transport scolaire</a>
-        <a href="#" class="blog-hero-cat">Événements</a>
-        <a href="#" class="blog-hero-cat">Transport entreprise</a>
+        <a href="#" class="blog-hero-cat cat-filter-link active" data-filter="all">Tout voir</a>
+        <a href="#" class="blog-hero-cat cat-filter-link" data-filter="actus">Actualités</a>
+        <a href="#" class="blog-hero-cat cat-filter-link" data-filter="guide">Guides pratiques</a>
+        <a href="#" class="blog-hero-cat cat-filter-link" data-filter="prix">Prix &amp; Tarifs</a>
+        <a href="#" class="blog-hero-cat cat-filter-link" data-filter="scolaire">Transport scolaire</a>
+        <a href="#" class="blog-hero-cat cat-filter-link" data-filter="events">Événements</a>
+        <a href="#" class="blog-hero-cat cat-filter-link" data-filter="entreprise">Transport entreprise</a>
       </div>
     </div>
   </section>
@@ -776,7 +776,7 @@
       <main>
 
         <!-- FEATURED POST -->
-        <a href="blog/tout-savoir-location-bus-bruxelles-2025.html" class="featured-post" aria-label="Lire l'article : Tout savoir sur la location de bus à Bruxelles en 2025">
+        <a href="blog/tout-savoir-location-bus-bruxelles-2025.html" data-cat="guide" class="featured-post" aria-label="Lire l'article : Tout savoir sur la location de bus à Bruxelles en 2025">
   <div class="featured-img img-guide">
     <img src="https://ik.imagekit.io/9nqnnkvba/Autocar%20de%20lujo%20junto%20al%20Atomium.png" alt="Guide complet location bus Bruxelles 2025" onerror="this.style.display='none'">
     <div class="featured-img-overlay"></div>
@@ -798,7 +798,7 @@
         <!-- SECTION: DERNIERS ARTICLES -->
         <h2 class="blog-section-title"><i class="fas fa-fire-flame-curved"></i> Derniers articles</h2>
         <div class="articles-grid">
-          <a href="blog/guerre-moyen-orient-prix-location-autocar-bruxelles-2026.html" class="article-card">
+          <a href="blog/guerre-moyen-orient-prix-location-autocar-bruxelles-2026.html" data-cat="actus" class="article-card">
   <div class="article-img img-actus">
     <div class="article-img-icon"><i class="fas fa-bolt"></i></div>
     <div class="article-img-overlay"></div>
@@ -816,7 +816,7 @@
     </div>
   </div>
 </a>
-<a href="blog/lez-bruxelles-2025-autocars-autorises.html" class="article-card">
+<a href="blog/lez-bruxelles-2025-autocars-autorises.html" data-cat="actus" class="article-card">
   <div class="article-img img-actus">
     <div class="article-img-icon"><i class="fas fa-bolt"></i></div>
     <div class="article-img-overlay"></div>
@@ -834,7 +834,7 @@
     </div>
   </div>
 </a>
-<a href="blog/combien-coute-bus-chauffeur-bruxelles-2025.html" class="article-card">
+<a href="blog/combien-coute-bus-chauffeur-bruxelles-2025.html" data-cat="prix" class="article-card">
   <div class="article-img img-prix">
     <div class="article-img-icon"><i class="fas fa-tag"></i></div>
     <div class="article-img-overlay"></div>
@@ -852,7 +852,7 @@
     </div>
   </div>
 </a>
-<a href="blog/sortie-scolaire-bus-bruxelles-normes-obligations.html" class="article-card">
+<a href="blog/sortie-scolaire-bus-bruxelles-normes-obligations.html" data-cat="scolaire" class="article-card">
   <div class="article-img img-scolaire">
     <div class="article-img-icon"><i class="fas fa-graduation-cap"></i></div>
     <div class="article-img-overlay"></div>
@@ -875,7 +875,7 @@
         <!-- SECTION: GUIDES PRATIQUES -->
         <h2 class="blog-section-title"><i class="fas fa-compass"></i> Guides pratiques</h2>
         <div class="articles-list">
-          <a href="blog/navettes-entreprise-bruxelles-pme-grands-groupes.html" class="article-list-item">
+          <a href="blog/navettes-entreprise-bruxelles-pme-grands-groupes.html" data-cat="entreprise" class="article-list-item">
   <div class="article-list-img img-entreprise"><i class="fas fa-briefcase"></i></div>
   <div class="article-list-body">
     <span class="post-cat-tag cat-entreprise" style="font-size:0.68rem; padding:3px 10px; margin-bottom:6px"><i class="fas fa-building"></i> Transport entreprise</span>
@@ -886,7 +886,7 @@
     </div>
   </div>
 </a>
-<a href="blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html" class="article-list-item">
+<a href="blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html" data-cat="guide" class="article-list-item">
   <div class="article-list-img img-guide"><i class="fas fa-book-open"></i></div>
   <div class="article-list-body">
     <span class="post-cat-tag cat-guide" style="font-size:0.68rem; padding:3px 10px; margin-bottom:6px"><i class="fas fa-book-open"></i> Guide pratique</span>
@@ -897,7 +897,7 @@
     </div>
   </div>
 </a>
-<a href="blog/navette-aeroport-zaventem-vs-charleroi-transport-groupe.html" class="article-list-item">
+<a href="blog/navette-aeroport-zaventem-vs-charleroi-transport-groupe.html" data-cat="actus" class="article-list-item">
   <div class="article-list-img img-actus"><i class="fas fa-bolt"></i></div>
   <div class="article-list-body">
     <span class="post-cat-tag cat-actus" style="font-size:0.68rem; padding:3px 10px; margin-bottom:6px"><i class="fas fa-bolt"></i> Actualités</span>
@@ -908,7 +908,7 @@
     </div>
   </div>
 </a>
-<a href="blog/bus-mariage-bruxelles-transporter-invites.html" class="article-list-item">
+<a href="blog/bus-mariage-bruxelles-transporter-invites.html" data-cat="events" class="article-list-item">
   <div class="article-list-img img-events"><i class="fas fa-calendar-alt"></i></div>
   <div class="article-list-body">
     <span class="post-cat-tag cat-events" style="font-size:0.68rem; padding:3px 10px; margin-bottom:6px"><i class="fas fa-calendar-alt"></i> Événements</span>
@@ -919,7 +919,7 @@
     </div>
   </div>
 </a>
-<a href="blog/top-5-circuits-touristiques-bus-bruxelles-bruges-gand-ardennes.html" class="article-list-item">
+<a href="blog/top-5-circuits-touristiques-bus-bruxelles-bruges-gand-ardennes.html" data-cat="conseils" class="article-list-item">
   <div class="article-list-img img-conseils"><i class="fas fa-lightbulb"></i></div>
   <div class="article-list-body">
     <span class="post-cat-tag cat-conseils" style="font-size:0.68rem; padding:3px 10px; margin-bottom:6px"><i class="fas fa-lightbulb"></i> Conseils</span>
@@ -935,7 +935,7 @@
         <!-- SECTION: MOBILITE BRUXELLOISE -->
         <h2 class="blog-section-title"><i class="fas fa-map-location-dot"></i> Mobilité bruxelloise</h2>
         <div class="articles-grid">
-          <a href="blog/plan-mobilite-bruxellois-good-move-impact-bus-groupe-2025.html" class="article-card">
+          <a href="blog/plan-mobilite-bruxellois-good-move-impact-bus-groupe-2025.html" data-cat="actus" class="article-card">
   <div class="article-img img-actus">
     <div class="article-img-icon"><i class="fas fa-bolt"></i></div>
     <div class="article-img-overlay"></div>
@@ -953,7 +953,7 @@
     </div>
   </div>
 </a>
-<a href="blog/evenements-masse-bruxelles-organiser-transport-groupe.html" class="article-card">
+<a href="blog/evenements-masse-bruxelles-organiser-transport-groupe.html" data-cat="conseils" class="article-card">
   <div class="article-img img-conseils">
     <div class="article-img-icon"><i class="fas fa-lightbulb"></i></div>
     <div class="article-img-overlay"></div>
@@ -993,13 +993,14 @@
         <div class="sidebar-widget">
           <h3><i class="fas fa-folder-open"></i> Catégories</h3>
           <ul class="cat-list">
-            <li><a href="#"><span><i class="fas fa-bolt cat-icon" style="color:#b45309"></i>Actualités</span><span class="cat-count">4</span></a></li>
-<li><a href="#"><span><i class="fas fa-book-open cat-icon" style="color:#1e40af"></i>Guide pratique</span><span class="cat-count">2</span></a></li>
-<li><a href="#"><span><i class="fas fa-tag cat-icon" style="color:#065f46"></i>Prix & Tarifs</span><span class="cat-count">1</span></a></li>
-<li><a href="#"><span><i class="fas fa-graduation-cap cat-icon" style="color:#5b21b6"></i>Transport scolaire</span><span class="cat-count">1</span></a></li>
-<li><a href="#"><span><i class="fas fa-calendar-alt cat-icon" style="color:#9d174d"></i>Événements</span><span class="cat-count">1</span></a></li>
-<li><a href="#"><span><i class="fas fa-briefcase cat-icon" style="color:#0c4a6e"></i>Transport entreprise</span><span class="cat-count">1</span></a></li>
-<li><a href="#"><span><i class="fas fa-lightbulb cat-icon" style="color:#9a3412"></i>Conseils</span><span class="cat-count">2</span></a></li>
+            <li><a href="#" class="cat-filter-link active" data-filter="all"><span><i class="fas fa-th cat-icon" style="color:#374151"></i>Tous les articles</span><span class="cat-count">12</span></a></li>
+            <li><a href="#" class="cat-filter-link" data-filter="actus"><span><i class="fas fa-bolt cat-icon" style="color:#b45309"></i>Actualités</span><span class="cat-count">4</span></a></li>
+<li><a href="#" class="cat-filter-link" data-filter="guide"><span><i class="fas fa-book-open cat-icon" style="color:#1e40af"></i>Guide pratique</span><span class="cat-count">2</span></a></li>
+<li><a href="#" class="cat-filter-link" data-filter="prix"><span><i class="fas fa-tag cat-icon" style="color:#065f46"></i>Prix &amp; Tarifs</span><span class="cat-count">1</span></a></li>
+<li><a href="#" class="cat-filter-link" data-filter="scolaire"><span><i class="fas fa-graduation-cap cat-icon" style="color:#5b21b6"></i>Transport scolaire</span><span class="cat-count">1</span></a></li>
+<li><a href="#" class="cat-filter-link" data-filter="events"><span><i class="fas fa-calendar-alt cat-icon" style="color:#9d174d"></i>Événements</span><span class="cat-count">1</span></a></li>
+<li><a href="#" class="cat-filter-link" data-filter="entreprise"><span><i class="fas fa-briefcase cat-icon" style="color:#0c4a6e"></i>Transport entreprise</span><span class="cat-count">1</span></a></li>
+<li><a href="#" class="cat-filter-link" data-filter="conseils"><span><i class="fas fa-lightbulb cat-icon" style="color:#9a3412"></i>Conseils</span><span class="cat-count">2</span></a></li>
           </ul>
         </div>
 
@@ -1155,5 +1156,88 @@
   </footer>
 
   <script src="js/main.js" defer></script>
+  <style>
+    .cat-filter-link.active { font-weight: 700; }
+    .cat-list .cat-filter-link.active span:first-child { color: var(--primary) !important; }
+    .cat-list .cat-filter-link.active .cat-count { background: var(--primary); color: #fff; }
+    [data-cat].hidden-by-filter { display: none !important; }
+    .blog-section-title.hidden-by-filter { display: none !important; }
+    #filter-status { font-size: 0.88rem; color: var(--text-light); margin: -8px 0 20px; font-style: italic; }
+    #filter-no-results { display: none; text-align: center; padding: 48px 24px; color: var(--text-light); font-size: 1rem; }
+    #filter-no-results.visible { display: block; }
+  </style>
+  <script>
+  (function() {
+    var SECTIONS = ['Derniers articles', 'Guides pratiques', 'Mobilité bruxelloise'];
+
+    function filterArticles(cat) {
+      var allCards = document.querySelectorAll('[data-cat]');
+      var shown = 0;
+
+      allCards.forEach(function(el) {
+        if (cat === 'all' || el.dataset.cat === cat) {
+          el.classList.remove('hidden-by-filter');
+          shown++;
+        } else {
+          el.classList.add('hidden-by-filter');
+        }
+      });
+
+      // Hide section titles if all their articles are hidden
+      document.querySelectorAll('.blog-section-title').forEach(function(title) {
+        var section = title.nextElementSibling;
+        if (!section) return;
+        var visibles = section.querySelectorAll('[data-cat]:not(.hidden-by-filter)');
+        title.classList.toggle('hidden-by-filter', visibles.length === 0);
+      });
+
+      // Status text
+      var status = document.getElementById('filter-status');
+      var noResults = document.getElementById('filter-no-results');
+      if (cat === 'all') {
+        if (status) status.textContent = '';
+        if (noResults) noResults.classList.remove('visible');
+      } else {
+        var label = document.querySelector('.cat-filter-link[data-filter="' + cat + '"] span:first-child');
+        var name = label ? label.textContent.trim() : cat;
+        if (status) status.textContent = shown + ' article' + (shown > 1 ? 's' : '') + ' dans "' + name + '"';
+        if (noResults) noResults.classList.toggle('visible', shown === 0);
+      }
+
+      // Sync all filter links (sidebar + hero)
+      document.querySelectorAll('.cat-filter-link').forEach(function(a) {
+        a.classList.toggle('active', a.dataset.filter === cat);
+      });
+
+      // Scroll to articles
+      if (cat !== 'all') {
+        var main = document.querySelector('.blog-layout main');
+        if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add status + no-results elements
+      var mainCol = document.querySelector('.blog-layout main');
+      if (mainCol) {
+        var status = document.createElement('p');
+        status.id = 'filter-status';
+        mainCol.insertBefore(status, mainCol.firstChild);
+
+        var noResults = document.createElement('div');
+        noResults.id = 'filter-no-results';
+        noResults.innerHTML = '<i class="fas fa-search" style="font-size:2rem;margin-bottom:12px;display:block;opacity:.3"></i>Aucun article dans cette catégorie pour le moment.';
+        mainCol.appendChild(noResults);
+      }
+
+      document.querySelectorAll('.cat-filter-link').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          filterArticles(this.dataset.filter || 'all');
+        });
+      });
+    });
+  })();
+  </script>
 </body>
 </html>
