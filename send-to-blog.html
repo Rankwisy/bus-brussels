@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publier sur bus.brussels — TextBuilder Bridge</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f0f9ff;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px 80px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 32px rgba(3,105,161,0.10);
+      width: 100%;
+      max-width: 860px;
+      overflow: hidden;
+    }
+    .card-header {
+      background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .card-header .logo {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .card-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .card-header p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 3px;
+    }
+    .pipeline {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 6px 14px;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .pipeline span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.75);
+      font-weight: 500;
+    }
+    .pipeline .dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; flex-shrink: 0; }
+    .card-body { padding: 32px 36px; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label {
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: #0c4a6e;
+      letter-spacing: 0.02em;
+    }
+    label .req { color: #dc2626; margin-left: 2px; }
+    input, select, textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: #1e293b;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #0369a1;
+      box-shadow: 0 0 0 3px rgba(3,105,161,0.12);
+      background: #fff;
+    }
+    textarea { resize: vertical; min-height: 240px; line-height: 1.6; }
+    .hint {
+      font-size: 0.76rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .cat-btn {
+      border: 1.5px solid #e2e8f0;
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 10px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #475569;
+      user-select: none;
+    }
+    .cat-btn:hover { border-color: #0369a1; color: #0369a1; background: #f0f9ff; }
+    .cat-btn.active { border-color: #0369a1; background: #0369a1; color: #fff; }
+    .cat-btn .icon { display: block; font-size: 1.1rem; margin-bottom: 4px; }
+    .divider { border: none; border-top: 1.5px solid #f1f5f9; margin: 24px 0; grid-column: 1 / -1; }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      grid-column: 1 / -1;
+      margin-top: 8px;
+    }
+    .btn-publish {
+      background: linear-gradient(135deg, #0c4a6e, #0369a1);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 32px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .btn-publish:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(3,105,161,0.35); }
+    .btn-publish:active { transform: none; }
+    .btn-publish:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-clear {
+      background: none;
+      border: 1.5px solid #e2e8f0;
+      color: #64748b;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-clear:hover { border-color: #94a3b8; color: #334155; }
+    .status-box {
+      margin-top: 20px;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      display: none;
+      align-items: flex-start;
+      gap: 12px;
+      grid-column: 1 / -1;
+    }
+    .status-box.show { display: flex; }
+    .status-box.loading { background: #f0f9ff; border: 1.5px solid #bae6fd; color: #0369a1; }
+    .status-box.success { background: #f0fdf4; border: 1.5px solid #86efac; color: #166534; }
+    .status-box.error   { background: #fef2f2; border: 1.5px solid #fca5a5; color: #991b1b; }
+    .status-box .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+    .status-box .text { line-height: 1.5; }
+    .status-box .text strong { display: block; margin-bottom: 4px; }
+    .status-box .url-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: #0369a1;
+      font-weight: 700;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    .status-box .url-link:hover { text-decoration: underline; }
+    .config-section {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .config-section .warn { font-size: 1.2rem; flex-shrink: 0; }
+    .config-section p { font-size: 0.85rem; color: #78350f; line-height: 1.5; }
+    .config-section code {
+      background: rgba(0,0,0,0.07);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: monospace;
+      font-size: 0.82rem;
+    }
+    .config-section input {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      padding: 8px 12px;
+      border-color: #fcd34d;
+      background: #fff;
+    }
+    .steps {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid #e2e8f0;
+    }
+    .step {
+      flex: 1;
+      padding: 12px 10px;
+      text-align: center;
+      background: #f8fafc;
+      border-right: 1.5px solid #e2e8f0;
+      font-size: 0.76rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+    .step:last-child { border-right: none; }
+    .step .num {
+      display: inline-flex;
+      width: 22px;
+      height: 22px;
+      background: #e2e8f0;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.72rem;
+      color: #475569;
+      margin-bottom: 5px;
+    }
+    .step.active .num { background: #0369a1; color: #fff; }
+    .step.done .num { background: #22c55e; color: #fff; }
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .card-body { padding: 24px 20px; }
+      .pipeline { display: none; }
+      .steps { display: none; }
+    }
+
+    /* Loading spinner */
+    .spinner {
+      width: 16px; height: 16px;
+      border: 2.5px solid rgba(3,105,161,0.25);
+      border-top-color: #0369a1;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="card-header">
+      <div class="logo">🚌</div>
+      <div>
+        <h1>Publier sur bus.brussels</h1>
+        <p>TextBuilder.ai → Make.com → Blog (autopilot)</p>
+      </div>
+      <div class="pipeline">
+        <div class="dot"></div>
+        <span>Pipeline actif</span>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <!-- Webhook URL config -->
+      <div class="config-section" id="configSection">
+        <div class="warn">⚙️</div>
+        <div style="flex:1">
+          <p><strong>Configuration requise :</strong> Collez votre URL de webhook Make.com ci-dessous puis cliquez <em>Sauvegarder</em>. Cette URL est créée dans Make.com → Module 1 (Webhooks → Custom webhook).</p>
+          <div style="display:flex; gap:8px; margin-top:8px">
+            <input type="url" id="webhookInput" placeholder="https://hook.eu1.make.com/xxxxxxxxxxxxxxxx" style="flex:1">
+            <button onclick="saveWebhook()" style="background:#0369a1;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:Inter,sans-serif">Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pipeline steps -->
+      <div class="steps" id="stepsBar">
+        <div class="step active" id="step1"><div class="num">1</div><br>Webhook</div>
+        <div class="step" id="step2"><div class="num">2</div><br>Claude AI</div>
+        <div class="step" id="step3"><div class="num">3</div><br>JWT Login</div>
+        <div class="step" id="step4"><div class="num">4</div><br>Créer post</div>
+        <div class="step" id="step5"><div class="num">5</div><br>Régénérer</div>
+        <div class="step" id="step6"><div class="num">6</div><br>Publié ✓</div>
+      </div>
+
+      <form id="publishForm">
+        <div class="form-grid">
+
+          <!-- Title -->
+          <div class="form-group full">
+            <label>Titre de l'article <span class="req">*</span></label>
+            <input type="text" id="title" name="title" placeholder="Ex : Guide complet du transport de groupe à Bruxelles en 2025" required>
+          </div>
+
+          <!-- Category -->
+          <div class="form-group full">
+            <label>Catégorie <span class="req">*</span></label>
+            <div class="category-grid" id="catGrid">
+              <div class="cat-btn active" data-val="guide" onclick="selectCat(this)">
+                <span class="icon">📖</span>Guide pratique
+              </div>
+              <div class="cat-btn" data-val="actus" onclick="selectCat(this)">
+                <span class="icon">⚡</span>Actualités
+              </div>
+              <div class="cat-btn" data-val="prix" onclick="selectCat(this)">
+                <span class="icon">💶</span>Prix & Tarifs
+              </div>
+              <div class="cat-btn" data-val="scolaire" onclick="selectCat(this)">
+                <span class="icon">🏫</span>Transport scolaire
+              </div>
+              <div class="cat-btn" data-val="events" onclick="selectCat(this)">
+                <span class="icon">🎉</span>Événements
+              </div>
+              <div class="cat-btn" data-val="entreprise" onclick="selectCat(this)">
+                <span class="icon">🏢</span>Entreprise
+              </div>
+              <div class="cat-btn" data-val="conseils" onclick="selectCat(this)">
+                <span class="icon">💡</span>Conseils
+              </div>
+            </div>
+            <input type="hidden" id="categoryHidden" value="guide">
+          </div>
+
+          <!-- Date -->
+          <div class="form-group">
+            <label>Date d'affichage</label>
+            <input type="text" id="date_display" name="date_display" placeholder="15 avril 2025">
+            <span class="hint">Laisser vide = date du jour automatique</span>
+          </div>
+
+          <!-- Read time hint -->
+          <div class="form-group">
+            <label>Temps de lecture estimé</label>
+            <input type="number" id="read_time_override" min="1" max="30" placeholder="Auto (calculé par IA)">
+            <span class="hint">Optionnel — Claude AI l'estime automatiquement</span>
+          </div>
+
+          <hr class="divider">
+
+          <!-- Body text -->
+          <div class="form-group full">
+            <label>Contenu de l'article <span class="req">*</span> — coller depuis TextBuilder.ai</label>
+            <textarea id="body_text" name="body_text" placeholder="Collez ici le texte complet généré par TextBuilder.ai. Claude AI va automatiquement le reformater en HTML sémantique SEO, générer le meta-titre, la meta-description, les tags et le slug URL." required></textarea>
+            <span class="hint" id="charCount">0 caractères</span>
+          </div>
+
+          <!-- Actions -->
+          <div class="actions">
+            <button type="submit" class="btn-publish" id="submitBtn">
+              <span id="btnIcon">🚀</span>
+              <span id="btnText">Publier sur le blog</span>
+            </button>
+            <button type="button" class="btn-clear" onclick="clearForm()">Effacer</button>
+          </div>
+
+          <!-- Status -->
+          <div class="status-box" id="statusBox">
+            <div class="icon" id="statusIcon"></div>
+            <div class="text" id="statusText"></div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ── Config: webhook URL stored in localStorage ──────────────────────────────
+    const WEBHOOK_KEY = 'bus_brussels_make_webhook';
+
+    function loadWebhookUrl() {
+      const saved = localStorage.getItem(WEBHOOK_KEY);
+      if (saved) {
+        document.getElementById('webhookInput').value = saved;
+        document.getElementById('configSection').style.background = '#f0fdf4';
+        document.getElementById('configSection').style.borderColor = '#86efac';
+      }
+      return saved || null;
+    }
+
+    function saveWebhook() {
+      const val = document.getElementById('webhookInput').value.trim();
+      if (!val.startsWith('http')) { alert('URL invalide — doit commencer par https://'); return; }
+      localStorage.setItem(WEBHOOK_KEY, val);
+      document.getElementById('configSection').style.background = '#f0fdf4';
+      document.getElementById('configSection').style.borderColor = '#86efac';
+      document.querySelector('.config-section p strong').textContent = 'URL Make.com sauvegardée ✅';
+    }
+
+    // ── Category selector ────────────────────────────────────────────────────────
+    function selectCat(el) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('categoryHidden').value = el.dataset.val;
+    }
+
+    // ── Char counter ─────────────────────────────────────────────────────────────
+    document.getElementById('body_text').addEventListener('input', function() {
+      const n = this.value.length;
+      const words = this.value.trim().split(/\s+/).filter(Boolean).length;
+      document.getElementById('charCount').textContent = `${n.toLocaleString('fr')} caractères · ~${words} mots`;
+    });
+
+    // ── Pipeline step highlight ──────────────────────────────────────────────────
+    function setStep(n) {
+      for (let i = 1; i <= 6; i++) {
+        const el = document.getElementById('step' + i);
+        el.classList.remove('active', 'done');
+        if (i < n) el.classList.add('done');
+        else if (i === n) el.classList.add('active');
+      }
+    }
+
+    // ── Status helper ────────────────────────────────────────────────────────────
+    function setStatus(type, icon, html) {
+      const box = document.getElementById('statusBox');
+      box.className = 'status-box show ' + type;
+      document.getElementById('statusIcon').innerHTML = type === 'loading'
+        ? '<div class="spinner"></div>'
+        : icon;
+      document.getElementById('statusText').innerHTML = html;
+    }
+
+    // ── Date helper ──────────────────────────────────────────────────────────────
+    function frenchDate() {
+      return new Date().toLocaleDateString('fr-BE', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    // ── Form submit ──────────────────────────────────────────────────────────────
+    document.getElementById('publishForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const webhookUrl = loadWebhookUrl();
+      if (!webhookUrl) {
+        alert('Veuillez d\'abord sauvegarder votre URL de webhook Make.com (section jaune en haut).');
+        return;
+      }
+
+      const title     = document.getElementById('title').value.trim();
+      const body_text = document.getElementById('body_text').value.trim();
+      const category  = document.getElementById('categoryHidden').value;
+      const date_raw  = document.getElementById('date_display').value.trim();
+      const rt_override = document.getElementById('read_time_override').value;
+
+      if (!title || !body_text) {
+        alert('Le titre et le contenu sont obligatoires.');
+        return;
+      }
+
+      const date_display = date_raw || frenchDate();
+
+      // Disable form
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      document.getElementById('btnIcon').textContent = '';
+      document.getElementById('btnText').textContent = 'Publication en cours…';
+
+      setStep(1);
+      setStatus('loading', '', '<strong>Étape 1/5 — Envoi vers Make.com…</strong>Connexion au pipeline d\'automatisation.');
+
+      const payload = { title, body_text, category, date_display };
+      if (rt_override) payload.read_time_override = parseInt(rt_override);
+
+      try {
+        setStep(2);
+        setStatus('loading', '', '<strong>Étape 2/5 — Claude AI reformate le contenu…</strong>Génération du HTML SEO, meta-description, tags et slug. Cela peut prendre 10–20 secondes.');
+
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errText = await response.text().catch(() => 'Erreur inconnue');
+          throw new Error(`Make.com a retourné ${response.status}: ${errText}`);
+        }
+
+        // If Make.com returns a JSON response with the published URL, show it
+        let result = null;
+        try {
+          result = await response.json();
+        } catch { /* Make.com sometimes returns "Accepted" plain text */ }
+
+        setStep(6);
+
+        const slug    = result && result.slug ? result.slug : null;
+        const blogUrl = slug ? `https://bus.brussels/blog/${slug}.html` : 'https://bus.brussels/blog.html';
+        const listUrl = 'https://bus.brussels/blog.html';
+
+        setStatus('success', '✅',
+          `<strong>Article publié avec succès !</strong>
+          Le pipeline Make.com a traité l'article, créé le post via l'API, et régénéré le blog.
+          <br>
+          <a href="${listUrl}" target="_blank" class="url-link">→ Voir sur bus.brussels/blog.html</a>
+          ${slug ? `<br><a href="${blogUrl}" target="_blank" class="url-link">→ Article : ${blogUrl}</a>` : ''}
+          <br><br>
+          <span style="font-size:0.82rem;color:#166534;opacity:0.8">Un commit GitHub a été créé automatiquement.</span>`
+        );
+
+      } catch (err) {
+        setStep(1);
+        setStatus('error', '❌',
+          `<strong>Erreur — ${err.message}</strong>
+          <br>Vérifiez :
+          <ul style="margin:8px 0 0 16px;font-size:0.85rem;line-height:1.7">
+            <li>L'URL webhook dans la section de configuration</li>
+            <li>Le scénario Make.com est bien <strong>actif (ON)</strong></li>
+            <li>L'API bus.brussels est disponible (Render.com peut mettre 30s à démarrer)</li>
+          </ul>`
+        );
+      } finally {
+        btn.disabled = false;
+        document.getElementById('btnIcon').textContent = '🚀';
+        document.getElementById('btnText').textContent = 'Publier sur le blog';
+      }
+    });
+
+    // ── Clear form ────────────────────────────────────────────────────────────────
+    function clearForm() {
+      document.getElementById('title').value = '';
+      document.getElementById('body_text').value = '';
+      document.getElementById('date_display').value = '';
+      document.getElementById('read_time_override').value = '';
+      document.getElementById('charCount').textContent = '0 caractères';
+      document.getElementById('statusBox').className = 'status-box';
+      setStep(1);
+      selectCat(document.querySelector('[data-val="guide"]'));
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────────────
+    loadWebhookUrl();
+    setStep(1);
+  </script>
+</body>
+</html>
