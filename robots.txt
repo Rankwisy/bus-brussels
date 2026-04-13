@@ -7,5 +7,7 @@ Allow: /
 # Sitemap location
 Sitemap: https://bus.brussels/sitemap.xml
 
-# Disallow admin or private directories
+# Disallow admin, utility pages and internal data files
 Disallow: /admin/
+Disallow: /send-to-blog.html
+Disallow: /data/
