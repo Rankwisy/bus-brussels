@@ -1,22 +1,22 @@
 # Netlify 301 redirects — redirect stubs to canonical blog articles
-# These replace the meta-refresh HTML stubs with proper HTTP 301 responses.
-# Netlify processes these BEFORE serving any HTML file at the same path.
+# 301! forces the redirect even when an HTML file exists at the same path.
+# Without !, Netlify serves the HTML file instead of applying the redirect.
 
 # Root-level stubs → canonical blog articles
-/7-questions-reserver-bus-chauffeur-bruxelles.html          /blog/7-questions-reserver-bus-chauffeur-bruxelles.html                                     301
-/autocar-ou-minibus-choisir-vehicule.html                   /blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html                                 301
-/guide-location-bus-bruxelles-2025.html                     /blog/tout-savoir-location-bus-bruxelles-2025.html                                          301
-/lez-bruxelles-2025-autocars-autorises.html                 /blog/lez-bruxelles-2025-autocars-autorises.html                                            301
-/prix-bus-avec-chauffeur-bruxelles-2025.html                /blog/combien-coute-bus-chauffeur-bruxelles-2025.html                                        301
-/good-move-bruxelles-bus-groupe.html                        /blog/plan-mobilite-bruxellois-good-move-impact-bus-groupe-2025.html                         301
-/sortie-scolaire-bus-bruxelles.html                         /blog/sortie-scolaire-bus-bruxelles-normes-obligations.html                                  301
-/navette-aeroport-zaventem-charleroi.html                   /blog/navette-aeroport-zaventem-vs-charleroi-transport-groupe.html                           301
-/navettes-entreprise-bruxelles.html                         /blog/navettes-entreprise-bruxelles-pme-grands-groupes.html                                  301
-/circuits-touristiques-bus-bruxelles.html                   /blog/top-5-circuits-touristiques-bus-bruxelles-bruges-gand-ardennes.html                    301
-/bus-mariage-bruxelles.html                                 /blog/bus-mariage-bruxelles-transporter-invites.html                                         301
-/evenements-masse-bruxelles-transport-groupe.html           /blog/evenements-masse-bruxelles-organiser-transport-groupe.html                             301
+/7-questions-reserver-bus-chauffeur-bruxelles.html          /blog/7-questions-reserver-bus-chauffeur-bruxelles.html                                     301!
+/autocar-ou-minibus-choisir-vehicule.html                   /blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html                                 301!
+/guide-location-bus-bruxelles-2025.html                     /blog/tout-savoir-location-bus-bruxelles-2025.html                                          301!
+/lez-bruxelles-2025-autocars-autorises.html                 /blog/lez-bruxelles-2025-autocars-autorises.html                                            301!
+/prix-bus-avec-chauffeur-bruxelles-2025.html                /blog/combien-coute-bus-chauffeur-bruxelles-2025.html                                        301!
+/good-move-bruxelles-bus-groupe.html                        /blog/plan-mobilite-bruxellois-good-move-impact-bus-groupe-2025.html                         301!
+/sortie-scolaire-bus-bruxelles.html                         /blog/sortie-scolaire-bus-bruxelles-normes-obligations.html                                  301!
+/navette-aeroport-zaventem-charleroi.html                   /blog/navette-aeroport-zaventem-vs-charleroi-transport-groupe.html                           301!
+/navettes-entreprise-bruxelles.html                         /blog/navettes-entreprise-bruxelles-pme-grands-groupes.html                                  301!
+/circuits-touristiques-bus-bruxelles.html                   /blog/top-5-circuits-touristiques-bus-bruxelles-bruges-gand-ardennes.html                    301!
+/bus-mariage-bruxelles.html                                 /blog/bus-mariage-bruxelles-transporter-invites.html                                         301!
+/evenements-masse-bruxelles-transport-groupe.html           /blog/evenements-masse-bruxelles-organiser-transport-groupe.html                             301!
 
 # Blog-level stubs → canonical blog articles
-/blog/autocar-ou-minibus-choisir-vehicule.html              /blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html                                 301
-/blog/evenements-masse-bruxelles-transport-groupe.html      /blog/evenements-masse-bruxelles-organiser-transport-groupe.html                             301
-/blog/good-move-bruxelles-bus-groupe.html                   /blog/plan-mobilite-bruxellois-good-move-impact-bus-groupe-2025.html                         301
+/blog/autocar-ou-minibus-choisir-vehicule.html              /blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html                                 301!
+/blog/evenements-masse-bruxelles-transport-groupe.html      /blog/evenements-masse-bruxelles-organiser-transport-groupe.html                             301!
+/blog/good-move-bruxelles-bus-groupe.html                   /blog/plan-mobilite-bruxellois-good-move-impact-bus-groupe-2025.html                         301!
