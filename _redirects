@@ -16,6 +16,9 @@
 /bus-mariage-bruxelles.html                                 /blog/bus-mariage-bruxelles-transporter-invites.html                                         301!
 /evenements-masse-bruxelles-transport-groupe.html           /blog/evenements-masse-bruxelles-organiser-transport-groupe.html                             301!
 
+# Sitemap HTML stub → canonical XML sitemap
+/sitemap.html                                               /sitemap.xml                                                                               301!
+
 # Blog-level stubs → canonical blog articles
 /blog/autocar-ou-minibus-choisir-vehicule.html              /blog/autocar-ou-minibus-choisir-vehicule-taille-groupe.html                                 301!
 /blog/evenements-masse-bruxelles-transport-groupe.html      /blog/evenements-masse-bruxelles-organiser-transport-groupe.html                             301!
