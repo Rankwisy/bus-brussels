@@ -137,7 +137,7 @@
     { name: 'De Lijn',            url: 'https://www.delijn.be',              prix: 1, rating: 2, extras: 1, responseTime: 3, services: ['Scolaire'] },
     { name: 'TEC',                url: 'https://www.letec.be',               prix: 1, rating: 2, extras: 1, responseTime: 3, services: ['Scolaire'] },
     { name: 'STIB-MIVB',          url: 'https://www.stib-mivb.be',          prix: 1, rating: 3, extras: 1, responseTime: 3, services: ['Entreprise'] },
-    { name: 'Limousine BXL',      url: 'https://limousine.brussels',         prix: 3, rating: 4, extras: 4, responseTime: 1, services: ['Privé', 'Événement'] },
+    { name: 'Limousine Brussels',      url: 'https://limousine.brussels',         prix: 3, rating: 4, extras: 4, responseTime: 1, services: ['Privé', 'Événement'] },
   ];
 
   function scoreCompetitor(c, criteria) {
@@ -168,7 +168,7 @@
       ].join('');
       const badge = isCowrk ? `<span class="comp-badge">Meilleur choix</span>` : '';
       return `<div class="comp-list-item${isCowrk ? ' comp-list-item--best' : ''}">
-        <div class="comp-list-rank">#${i + 1}</div>
+        <div class="comp-list-rank">${i + 1}</div>
         <div class="comp-list-body">
           <div class="comp-list-header">
             <a class="comp-list-name" href="${c.url}" target="${target}" rel="${rel}">${c.name} ↗</a>
