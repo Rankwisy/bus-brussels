@@ -339,7 +339,9 @@
             </h2>
             <p style="font-size:0.88rem; color:var(--text-light); margin-bottom:28px">Plus vous fournissez de détails, plus notre devis sera précis et rapide.</p>
 
-            <form id="devisForm" action="#" method="post" novalidate>
+            <form id="devisForm" name="devis" action="/devis-bus-bruxelles.html" method="post" data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="devis">
+              <p hidden><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
               <div class="form-grid">
 
                 <!-- Nom & Prénom -->
@@ -468,6 +470,7 @@
                   <button type="submit" class="submit-btn-large">
                     <i class="fas fa-paper-plane"></i> Envoyer ma demande de devis gratuit
                   </button>
+                  <p id="devisError" role="alert" style="display:none; margin-top:12px; color:#b91c1c; font-weight:600">Votre demande n'a pas pu être envoyée. Réessayez ou écrivez-nous à <a href="mailto:info@bus.brussels">info@bus.brussels</a>.</p>
                   <p class="form-note" style="margin-top:12px">
                     <i class="fas fa-lock" style="color:var(--success)"></i> Vos données sont traitées de manière confidentielle et ne sont jamais revendues à des tiers. En soumettant ce formulaire, vous acceptez notre <a href="#" style="color:var(--primary)">politique de confidentialité</a>. Réponse garantie sous 2h, sans engagement.
                   </p>
@@ -716,11 +719,25 @@
   <script src="js/main.js" defer></script>
   <script>
     // Devis form submission handler
+    // Sends the request to Netlify Forms; success is shown only once the server has accepted it.
     document.getElementById('devisForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      this.style.display = 'none';
-      document.getElementById('devisSuccess').style.display = 'block';
-      window.scrollTo({ top: document.querySelector('.devis-card').offsetTop - 100, behavior: 'smooth' });
+      var form = this, btn = form.querySelector('button[type="submit"]'), err = document.getElementById('devisError');
+      err.style.display = 'none';
+      btn.disabled = true;
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      }).then(function(res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        form.style.display = 'none';
+        document.getElementById('devisSuccess').style.display = 'block';
+        window.scrollTo({ top: document.querySelector('.devis-card').offsetTop - 100, behavior: 'smooth' });
+      }).catch(function() {
+        btn.disabled = false;
+        err.style.display = 'block';
+      });
     });
   </script>
 </body>

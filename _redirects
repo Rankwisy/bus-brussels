@@ -1,3 +1,7 @@
+# Admin tool and its data are not part of the public site (the admin runs on its own host).
+/admin/*   /404.html   404!
+/data/*    /404.html   404!
+
 # Netlify 301 redirects — redirect stubs to canonical blog articles
 # 301! forces the redirect even when an HTML file exists at the same path.
 # Without !, Netlify serves the HTML file instead of applying the redirect.
