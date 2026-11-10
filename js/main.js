@@ -166,9 +166,9 @@
         `<span class="comp-tag">${c.services.length} service${c.services.length > 1 ? 's' : ''}</span>`,
         `<span class="comp-tag">${extrasLabel(c.extras)} extras</span>`,
       ].join('');
-      const badge = isCowrk ? `<span class="comp-badge">Meilleur choix</span>` : '';
+      const badge = isCowrk ? `<span class="comp-badge">Notre offre</span>` : '';
       return `<div class="comp-list-item${isCowrk ? ' comp-list-item--best' : ''}">
-        <div class="comp-list-rank">${i + 1}</div>
+        <div class="comp-list-rank">${isCowrk ? '★' : i}</div>
         <div class="comp-list-body">
           <div class="comp-list-header">
             <a class="comp-list-name" href="${c.url}" target="${target}" rel="${rel}">${c.name} ↗</a>
